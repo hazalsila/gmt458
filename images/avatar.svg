@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="58" fill="url(#avatarGrad)" stroke="#38bdf8" stroke-width="3"/>
+  <circle cx="60" cy="46" r="22" fill="#f8fafc"/>
+  <path d="M26 102 C26 78 40 70 60 70 C80 70 94 78 94 102 Z" fill="#f8fafc"/>
+  <!-- Geospatial compass pin icon in corner -->
+  <circle cx="92" cy="30" r="16" fill="#0369a1" stroke="#38bdf8" stroke-width="2"/>
+  <polygon points="92,18 97,29 92,26 87,29" fill="#ef4444"/>
+  <polygon points="92,42 97,31 92,34 87,31" fill="#f8fafc"/>
+</svg>

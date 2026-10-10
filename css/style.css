@@ -1,0 +1,1136 @@
+/* ==========================================================================
+   GMT 458 – Web GIS Assignment 1: Personal Web Page
+   Project: Türkiye'nin Gizli Koyları (Secret Bays of Turkey Web GIS)
+   Student: Hazal Sıla Yılmaz
+   Hacettepe University - Department of Geomatics Engineering
+   Theme: Deep Ocean Navy & Marine Waves
+   ========================================================================== */
+
+/* --- Ocean & Marine Color Palette --- */
+:root {
+  --bg-deep-ocean: #020b18;
+  --bg-ocean-navy: #05162e;
+  --bg-card: rgba(10, 31, 64, 0.75);
+  --bg-card-hover: rgba(18, 48, 96, 0.85);
+  --border-ocean: rgba(56, 189, 248, 0.2);
+  --border-glow: rgba(45, 212, 191, 0.5);
+
+  --text-primary: #f0fdfa;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  --sea-cyan: #38bdf8;
+  --sea-teal: #14b8a6;
+  --sea-emerald: #10b981;
+  --sea-foam: #5eead4;
+  --coral-orange: #f97316;
+  --deep-azure: #0284c7;
+
+  /* Ulaşım Zorluğu Renkleri */
+  --diff-boat: #a855f7;    /* Sadece Tekne */
+  --diff-hike: #ef4444;    /* Zor Patika / Yürüyüş */
+  --diff-dirt: #f59e0b;    /* 4x4 / Toprak Yol */
+  --diff-easy: #10b981;    /* Kolay Araç */
+
+  --gradient-ocean: linear-gradient(135deg, #0284c7 0%, #0d9488 50%, #059669 100%);
+  --gradient-deep: linear-gradient(180deg, #020b18 0%, #05162e 50%, #082144 100%);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  --shadow-ocean: 0 8px 30px rgba(2, 11, 24, 0.8);
+  --shadow-glow: 0 0 30px rgba(56, 189, 248, 0.35);
+
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Base & Reset --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-deep-ocean);
+  background-image: 
+    radial-gradient(ellipse at 50% 0%, rgba(14, 116, 144, 0.2) 0%, transparent 70%),
+    radial-gradient(ellipse at 80% 60%, rgba(13, 148, 136, 0.12) 0%, transparent 60%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--sea-cyan);
+  text-decoration: none;
+  transition: var(--transition-normal);
+}
+
+a:hover {
+  color: var(--sea-foam);
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ==========================================================================
+   CSS KEYFRAME ANIMATIONS (%10 Requirement)
+   ========================================================================== */
+
+/* 1. Canlı Dalga Animasyonu */
+@keyframes waveAnimation {
+  0% { transform: translateX(0) translateZ(0) scaleY(1); }
+  50% { transform: translateX(-25%) translateZ(0) scaleY(1.15); }
+  100% { transform: translateX(-50%) translateZ(0) scaleY(1); }
+}
+
+@keyframes waveAnimationReverse {
+  0% { transform: translateX(-50%) translateZ(0) scaleY(1); }
+  50% { transform: translateX(-25%) translateZ(0) scaleY(0.85); }
+  100% { transform: translateX(0) translateZ(0) scaleY(1); }
+}
+
+.wave-container {
+  position: relative;
+  width: 100%;
+  height: 90px;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.wave-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+}
+
+.wave-1 {
+  fill: rgba(14, 116, 144, 0.35);
+  animation: waveAnimation 12s linear infinite;
+  z-index: 1;
+}
+
+.wave-2 {
+  fill: rgba(13, 148, 136, 0.45);
+  animation: waveAnimationReverse 18s linear infinite;
+  z-index: 2;
+}
+
+.wave-3 {
+  fill: var(--bg-deep-ocean);
+  animation: waveAnimation 8s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+  z-index: 3;
+}
+
+/* 2. Su Halkası & Radar Ripple Animasyonu */
+@keyframes rippleExpand {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.9;
+  }
+  80% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.ocean-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(56, 189, 248, 0.4);
+  animation: rippleExpand 2.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+/* 3. Süzülen Nesne */
+@keyframes seaFloat {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1.5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.animate-float {
+  animation: seaFloat 4s ease-in-out infinite;
+}
+
+/* 4. Parlayan Neon Nabız */
+@keyframes marineGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+    border-color: rgba(56, 189, 248, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(45, 212, 191, 0.5);
+    border-color: rgba(45, 212, 191, 0.7);
+  }
+}
+
+.animate-marine-glow {
+  animation: marineGlow 3.5s ease-in-out infinite;
+}
+
+/* 5. Deniz Yüzeyi Işıltısı */
+@keyframes shimmerOcean {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #38bdf8, #5eead4, #67e8f9, #38bdf8);
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerOcean 5s ease infinite;
+  display: inline-block;
+  font-weight: 800;
+}
+
+/* --- Header & Navigation Bar --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: rgba(2, 11, 24, 0.85);
+  border-bottom: 1px solid var(--border-ocean);
+  transition: var(--transition-normal);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  max-width: 1220px;
+  margin: 0 auto;
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.site-logo:hover {
+  text-decoration: none;
+}
+
+.site-logo .logo-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--gradient-ocean);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #fff;
+  box-shadow: 0 0 18px rgba(45, 212, 191, 0.4);
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 1rem;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: var(--transition-normal);
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+  background: rgba(56, 189, 248, 0.08);
+  text-decoration: none;
+}
+
+.nav-link.active {
+  color: var(--sea-cyan);
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: var(--sea-cyan);
+  border-radius: 2px;
+}
+
+.nav-toggle-btn {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--border-ocean);
+  color: var(--text-primary);
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+/* --- Hero Section --- */
+.hero-section {
+  padding: 4.5rem 0 2rem;
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  align-items: center;
+  gap: 3rem;
+}
+
+.hero-subtitle {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+  color: var(--sea-foam);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero-title {
+  font-size: 2.85rem;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+  font-weight: 800;
+}
+
+.hero-description {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  max-width: 620px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.6rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition-normal);
+  text-decoration: none;
+}
+
+.btn:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--gradient-ocean);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(13, 148, 136, 0.4);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 24px rgba(45, 212, 191, 0.55);
+  color: #fff;
+}
+
+.btn-secondary {
+  background: rgba(10, 31, 64, 0.8);
+  color: var(--text-primary);
+  border: 1px solid var(--border-ocean);
+}
+
+.btn-secondary:hover {
+  background: rgba(18, 48, 96, 0.9);
+  border-color: var(--sea-cyan);
+}
+
+/* Profile Card */
+.profile-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-ocean);
+  border-radius: var(--radius-lg);
+  padding: 2.2rem;
+  position: relative;
+  text-align: center;
+  box-shadow: var(--shadow-ocean);
+  transition: var(--transition-normal);
+}
+
+.profile-card:hover {
+  border-color: var(--border-glow);
+  box-shadow: var(--shadow-glow);
+}
+
+.profile-avatar-wrapper {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 1.5rem;
+}
+
+.profile-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgba(56, 189, 248, 0.4);
+}
+
+.avatar-badge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background: var(--bg-deep-ocean);
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 1.2rem;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.profile-role {
+  color: var(--sea-foam);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+}
+
+.profile-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-ocean);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* --- Section Layouts --- */
+.section {
+  padding: 4rem 0;
+  position: relative;
+}
+
+.section-alt {
+  background: rgba(5, 22, 46, 0.55);
+  border-top: 1px solid var(--border-ocean);
+  border-bottom: 1px solid var(--border-ocean);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 3rem;
+}
+
+.section-kicker {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--sea-cyan);
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+
+.section-desc {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+}
+
+/* --- Card Grids --- */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.75rem;
+}
+
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-ocean);
+  border-radius: var(--radius-md);
+  padding: 1.8rem;
+  transition: var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-glow);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--sea-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.65rem;
+}
+
+.card-text {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+/* --- Badges & Category Tags --- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.badge-boat {
+  background: rgba(168, 85, 247, 0.18);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.badge-hike {
+  background: rgba(239, 68, 68, 0.18);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.badge-dirt {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.badge-easy {
+  background: rgba(16, 185, 129, 0.18);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.badge-cyan {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.badge-emerald {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-rose {
+  background: rgba(244, 63, 94, 0.15);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.badge-amber {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* --- Tabular Information with Images (%10 Requirement) --- */
+.table-wrapper {
+  overflow-x: auto;
+  background: var(--bg-card);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border-ocean);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-ocean);
+  margin-top: 1.5rem;
+}
+
+.gis-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 820px;
+}
+
+.gis-table thead {
+  background: rgba(2, 11, 24, 0.95);
+  border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+}
+
+.gis-table th {
+  padding: 1.15rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.gis-table tbody tr {
+  border-bottom: 1px solid var(--border-ocean);
+  transition: var(--transition-normal);
+}
+
+.gis-table tbody tr:hover {
+  background: rgba(56, 189, 248, 0.09);
+}
+
+.gis-table td {
+  padding: 1.15rem 1.25rem;
+  font-size: 0.95rem;
+  vertical-align: middle;
+}
+
+.table-tech-cell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.table-icon-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-ocean);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.gis-table tr:hover .table-icon-img {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.table-tech-name {
+  font-weight: 700;
+  color: var(--text-primary);
+  display: block;
+}
+
+.table-tech-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.proficiency-bar-bg {
+  width: 100%;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.proficiency-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--gradient-ocean);
+  transition: width 1s ease-in-out;
+}
+
+/* --- Map Containers & Controls --- */
+.map-card-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border-ocean);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-ocean);
+  margin-bottom: 3.5rem;
+}
+
+.map-card-header {
+  padding: 1.25rem 1.75rem;
+  background: rgba(2, 11, 24, 0.9);
+  border-bottom: 1px solid var(--border-ocean);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.map-title-group h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.map-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.map-controls-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.map-status-pill {
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(10, 31, 64, 0.9);
+  border: 1px solid var(--border-ocean);
+}
+
+/* Filter Buttons Toolbar */
+.bay-filter-toolbar {
+  background: rgba(5, 22, 46, 0.95);
+  padding: 0.85rem 1.75rem;
+  border-bottom: 1px solid var(--border-ocean);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: rgba(10, 31, 64, 0.8);
+  border: 1px solid var(--border-ocean);
+  color: var(--text-secondary);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-normal);
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: var(--gradient-ocean);
+  color: #fff;
+  border-color: var(--sea-cyan);
+  box-shadow: 0 2px 10px rgba(45, 212, 191, 0.35);
+}
+
+.map-container {
+  width: 100%;
+  height: 540px;
+  position: relative;
+  background: #020b18;
+  z-index: 1;
+}
+
+.ol-map-container {
+  width: 100%;
+  height: 540px;
+  position: relative;
+  background: #020b18;
+  z-index: 1;
+}
+
+/* Leaflet DivIcon reset to prevent white boxes */
+.custom-bay-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Custom Marker Styling for Leaflet */
+.bay-marker-pin {
+  width: 32px;
+  height: 32px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.bay-marker-pin:hover {
+  transform: rotate(-45deg) scale(1.2);
+}
+
+.bay-marker-pin span {
+  transform: rotate(45deg);
+  font-size: 14px;
+}
+
+/* Leaflet Popup Ocean Styling */
+.leaflet-popup-content-wrapper {
+  background: rgba(2, 11, 24, 0.95) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-ocean) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-ocean) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.leaflet-popup-tip {
+  background: rgba(2, 11, 24, 0.95) !important;
+}
+
+/* Interactive Issue Control Panel below Map */
+.issue-solution-panel {
+  padding: 1.5rem 1.75rem;
+  background: rgba(2, 11, 24, 0.95);
+  border-top: 1px solid var(--border-ocean);
+}
+
+.issue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.issue-box {
+  background: rgba(10, 31, 64, 0.65);
+  border: 1px solid var(--border-ocean);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem;
+}
+
+.issue-box-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sea-cyan);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.issue-box p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.code-snippet {
+  background: #010610;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--sea-foam);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Toggle Switch Styles */
+.toggle-switch-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #1e3a5f;
+  transition: .3s;
+  border-radius: 26px;
+  border: 1px solid var(--border-ocean);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--sea-teal);
+  border-color: var(--sea-cyan);
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+/* Timeline Section */
+.timeline {
+  position: relative;
+  padding: 1.5rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 20px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--sea-cyan), rgba(56, 189, 248, 0.05));
+}
+
+.timeline-item {
+  position: relative;
+  margin-left: 50px;
+  margin-bottom: 2rem;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -50px;
+  top: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg-deep-ocean);
+  border: 3px solid var(--sea-cyan);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+}
+
+.timeline-date {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--sea-cyan);
+  margin-bottom: 0.25rem;
+}
+
+.timeline-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.timeline-desc {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+/* --- Footer --- */
+.site-footer {
+  margin-top: auto;
+  background: #010610;
+  border-top: 1px solid var(--border-ocean);
+  padding: 3rem 0 2rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.footer-heading {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+  transition: var(--transition-normal);
+}
+
+.footer-links a:hover {
+  color: var(--sea-cyan);
+  text-decoration: none;
+  transform: translateX(3px);
+  display: inline-block;
+}
+
+.footer-bottom {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* --- Responsive Media Queries --- */
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-actions {
+    justify-content: center;
+  }
+  .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-ocean-navy);
+    border-bottom: 1px solid var(--border-ocean);
+    flex-direction: column;
+    padding: 1rem 1.5rem;
+  }
+  .nav-menu.open {
+    display: flex;
+  }
+  .nav-toggle-btn {
+    display: block;
+  }
+  .hero-title {
+    font-size: 2.1rem;
+  }
+  .map-container, .ol-map-container {
+    height: 420px;
+  }
+}
