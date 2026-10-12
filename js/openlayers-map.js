@@ -56,15 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   });
 
-  // Tile Source with wrapX: false for Issue 2 (CartoDB Voyager - No 403 blocks)
-  let cartoSource = new ol.source.XYZ({
-    url: 'https://{a-d}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-    attributions: '&copy; OpenStreetMap contributors &copy; CARTO',
+  // Tile Source with wrapX: false for Issue 2 (Esri World Street Map - No Watermarks, Free)
+  const esriTileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}';
+
+  let esriSource = new ol.source.XYZ({
+    url: esriTileUrl,
+    attributions: 'Tiles &copy; Esri',
     wrapX: !isOlWrapDisabled
   });
 
   let rasterLayer = new ol.layer.Tile({
-    source: cartoSource
+    source: esriSource
   });
 
   // Map View centered on Southern Aegean / Mediterranean coast
@@ -184,8 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
       isOlWrapDisabled = e.target.checked;
 
       const newSource = new ol.source.XYZ({
-        url: 'https://{a-d}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-        attributions: '&copy; OpenStreetMap contributors &copy; CARTO',
+        url: esriTileUrl,
+        attributions: 'Tiles &copy; Esri',
         wrapX: !isOlWrapDisabled
       });
       rasterLayer.setSource(newSource);

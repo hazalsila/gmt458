@@ -25,12 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
     maxBoundsViscosity: 1.0
   });
 
-  // Base Tile Layer - CartoDB Voyager (No 403 Block, high-resolution marine colors)
-  const tileUrl = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+  // Base Tile Layer - Esri World Street Map (100% Free, No Watermark, No API Key, No 403 block)
+  const tileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}';
 
   let tileLayer = L.tileLayer(tileUrl, {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a> | GMT 458',
-    subdomains: 'abcd',
+    attribution: 'Tiles &copy; <a href="https://www.esri.com/">Esri</a> | GMT 458 Web GIS',
     maxZoom: 19,
     noWrap: isWrapPreventionEnabled
   }).addTo(map);
@@ -497,8 +496,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isWrapPreventionEnabled) {
       tileLayer = L.tileLayer(tileUrl, {
-        attribution: '&copy; OpenStreetMap &copy; CARTO | GMT 458',
-        subdomains: 'abcd',
+        attribution: 'Tiles &copy; Esri | GMT 458',
         maxZoom: 19,
         noWrap: true
       }).addTo(map);
@@ -512,8 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } else {
       tileLayer = L.tileLayer(tileUrl, {
-        attribution: '&copy; OpenStreetMap &copy; CARTO | GMT 458',
-        subdomains: 'abcd',
+        attribution: 'Tiles &copy; Esri | GMT 458',
         maxZoom: 19,
         noWrap: false
       }).addTo(map);
