@@ -25,9 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
     maxBoundsViscosity: 1.0
   });
 
-  // Base Tile Layer with noWrap option for Issue 2
-  let tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | GMT 458 Web GIS',
+  // Base Tile Layer - CartoDB Voyager (No 403 Block, high-resolution marine colors)
+  const tileUrl = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+
+  let tileLayer = L.tileLayer(tileUrl, {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a> | GMT 458',
+    subdomains: 'abcd',
+    maxZoom: 19,
     noWrap: isWrapPreventionEnabled
   }).addTo(map);
 
@@ -492,8 +496,10 @@ document.addEventListener('DOMContentLoaded', () => {
     map.removeLayer(tileLayer);
 
     if (isWrapPreventionEnabled) {
-      tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors | GMT 458',
+      tileLayer = L.tileLayer(tileUrl, {
+        attribution: '&copy; OpenStreetMap &copy; CARTO | GMT 458',
+        subdomains: 'abcd',
+        maxZoom: 19,
         noWrap: true
       }).addTo(map);
 
@@ -505,8 +511,10 @@ document.addEventListener('DOMContentLoaded', () => {
         wrapStatusEl.className = "map-status-pill badge-cyan";
       }
     } else {
-      tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors | GMT 458',
+      tileLayer = L.tileLayer(tileUrl, {
+        attribution: '&copy; OpenStreetMap &copy; CARTO | GMT 458',
+        subdomains: 'abcd',
+        maxZoom: 19,
         noWrap: false
       }).addTo(map);
 

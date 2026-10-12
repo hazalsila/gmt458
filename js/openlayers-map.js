@@ -56,13 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   });
 
-  // Tile Source with wrapX: false for Issue 2
-  let osmSource = new ol.source.OSM({
+  // Tile Source with wrapX: false for Issue 2 (CartoDB Voyager - No 403 blocks)
+  let cartoSource = new ol.source.XYZ({
+    url: 'https://{a-d}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+    attributions: '&copy; OpenStreetMap contributors &copy; CARTO',
     wrapX: !isOlWrapDisabled
   });
 
   let rasterLayer = new ol.layer.Tile({
-    source: osmSource
+    source: cartoSource
   });
 
   // Map View centered on Southern Aegean / Mediterranean coast
@@ -181,7 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
     olWrapToggle.addEventListener('change', (e) => {
       isOlWrapDisabled = e.target.checked;
 
-      const newSource = new ol.source.OSM({
+      const newSource = new ol.source.XYZ({
+        url: 'https://{a-d}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+        attributions: '&copy; OpenStreetMap contributors &copy; CARTO',
         wrapX: !isOlWrapDisabled
       });
       rasterLayer.setSource(newSource);
