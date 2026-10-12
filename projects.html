@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gizli Koy Haritaları & Web GIS Çözümleri | Hazal Sıla Yılmaz</title>
+  <meta name="description" content="Leaflet ve OpenLayers ile Türkiye'nin gizli koyları haritası, zoom eşik değeri ve dünya tekrarı sorunlarının çözümü. GMT 458 Web GIS.">
+  
+  <!-- Google Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Local Leaflet & OpenLayers CSS (Garantili Yerel Yükleme) -->
+  <link rel="stylesheet" href="css/leaflet.css">
+  <link rel="stylesheet" href="css/ol.css">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* OpenLayers popup overlay styles */
+    .ol-popup {
+      position: absolute;
+      background-color: #020b18;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border-ocean);
+      bottom: 14px;
+      left: -50px;
+      min-width: 220px;
+      color: #f0fdfa;
+    }
+    .ol-popup:after, .ol-popup:before {
+      top: 100%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+    .ol-popup:after {
+      border-top-color: #020b18;
+      border-width: 10px;
+      left: 48px;
+      margin-left: -10px;
+    }
+    .ol-popup:before {
+      border-top-color: var(--border-ocean);
+      border-width: 11px;
+      left: 48px;
+      margin-left: -11px;
+    }
+    .ol-popup-closer {
+      text-decoration: none;
+      position: absolute;
+      top: 4px;
+      right: 8px;
+      color: var(--sea-cyan);
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .ol-popup-closer:hover {
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header & Navigation -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="site-logo">
+        <div class="logo-icon">🌊</div>
+        <span>Hazal Sıla Yılmaz</span>
+      </a>
+
+      <button class="nav-toggle-btn" aria-label="Menüyü Aç/Kapat">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Hakkımda & Proje</a></li>
+        <li><a href="technologies.html" class="nav-link">Teknolojiler & Tablo</a></li>
+        <li><a href="projects.html" class="nav-link active">Koy Haritaları & Çözümler</a></li>
+        <li><a href="https://github.com/hazalsila" target="_blank" rel="noopener" class="btn btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;">GitHub ↗</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Section Header -->
+    <section class="section" style="padding-bottom: 2rem;">
+      <div class="container">
+        <div class="section-header" style="margin-bottom: 1.5rem;">
+          <div class="section-kicker">Kıyı Coğrafi Bilgi Sistemleri</div>
+          <h1 class="section-title">Türkiye'nin Gizli Koyları İnteraktif Haritaları</h1>
+          <p class="section-desc">
+            Hem <strong>Leaflet</strong> hem de <strong>OpenLayers</strong> harita motorları üzerinde Türkiye kıyılarındaki 
+            30'dan fazla saklı koyun konumları ve ödevde belirtilen <strong>Sorun 1 (Zoom Eşik Değeri)</strong> ile 
+            <strong>Sorun 2 (Dünya Tekrarı Önleme)</strong> çözümlerinin canlı demosu.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <!-- ===================================================================
+           HARİTA 1: LEAFLET IMPLEMENTASYONU (%10 Leaflet + %10 Issue 1 + %10 Issue 2)
+           =================================================================== -->
+      <section class="map-card-wrapper" id="leaflet-section">
+        <div class="map-card-header">
+          <div class="map-title-group">
+            <h3>
+              <img src="images/leaflet.svg" alt="Leaflet" width="28" height="28">
+              Leaflet.js Kıyı ve Gizli Koy Haritası
+            </h3>
+            <span class="map-subtitle">
+              Ulaşım zorluğuna göre renklendirilmiş koylar, zoom eşiği ve yatay sınır kilidi
+            </span>
+          </div>
+
+          <div class="map-controls-bar">
+            <div class="map-status-pill">
+              <span>Mevcut Zoom:</span>
+              <strong id="leaflet-current-zoom" style="color: var(--sea-cyan); font-size: 1.1rem;">7</strong>
+            </div>
+
+            <div id="leaflet-marker-status" class="map-status-pill badge-emerald">
+              Koylar yükleniyor...
+            </div>
+          </div>
+        </div>
+
+        <!-- Ulaşım Zorluğu Filtreleme Araç Çubuğu -->
+        <div class="bay-filter-toolbar">
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--sea-foam); display: flex; align-items: center; gap: 0.4rem;">
+            <span>🎯 Ulaşım Filtresi:</span>
+          </div>
+          <div class="filter-group">
+            <button class="filter-btn active" data-filter="all">Tüm Koylar (30+)</button>
+            <button class="filter-btn" data-filter="tekne">⛵ Sadece Tekne</button>
+            <button class="filter-btn" data-filter="patika">🚶 Sarp Patika</button>
+            <button class="filter-btn" data-filter="toprak">🚙 4x4 / Toprak Yol</button>
+            <button class="filter-btn" data-filter="kolay">🚗 Kolay Araç</button>
+          </div>
+        </div>
+
+        <!-- İnteraktif Sorun 1 & 2 Ayar Paneli (Canlı Test) -->
+        <div style="background: rgba(2, 11, 24, 0.95); padding: 0.85rem 1.75rem; border-bottom: 1px solid var(--border-ocean); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <!-- Sorun 1: Zoom Slider -->
+          <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.88rem;">
+            <label for="leaflet-threshold-slider" style="font-weight: 600; color: var(--sea-cyan);">
+              🎯 Sorun 1 Eşik Değeri: <span id="leaflet-threshold-val" style="color: white; font-weight: 700;">7</span>
+            </label>
+            <input type="range" id="leaflet-threshold-slider" min="4" max="10" value="7" style="cursor: pointer; accent-color: var(--sea-cyan);">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">(Zoom seviyesi ≥ eşik olunca koylar belirir)</span>
+          </div>
+
+          <!-- Sorun 2: Dünya Tekrarı Toggle -->
+          <div class="toggle-switch-wrapper">
+            <span style="color: var(--sea-cyan);">🌍 Sorun 2 Dünya Tekrarını Önle:</span>
+            <label class="switch">
+              <input type="checkbox" id="leaflet-wrap-toggle" checked>
+              <span class="slider"></span>
+            </label>
+            <span id="leaflet-wrap-status" class="map-status-pill badge-cyan" style="font-size: 0.8rem; padding: 0.25rem 0.65rem;">
+              Dünya Tekrarı Önleme: AÇIK
+            </span>
+          </div>
+        </div>
+
+        <!-- Leaflet Harita Kapsayıcısı -->
+        <div id="leaflet-map" class="map-container"></div>
+
+        <!-- Sorun 1 & 2 Çözüm Raporu ve Kod Blokları -->
+        <div class="issue-solution-panel">
+          <div class="issue-grid">
+            <!-- Sorun 1 Kutusu -->
+            <div class="issue-box">
+              <div class="issue-box-title">
+                <span>🎯 Sorun 1: Kıyı Marker Çakışması & Zoom Eşik Değeri</span>
+              </div>
+              <p>
+                <strong>Problem:</strong> Türkiye kıyı şeridinde onlarca koy birbirine çok yakındır (Örn: Kaş veya Datça kıyıları). Türkiye genelindeyken (Zoom 5-6) tüm pinlerin gösterilmesi haritayı okunmaz bir karmaşaya çevirir.
+              </p>
+              <p>
+                <strong>Çözüm:</strong> Leaflet <code>zoomend</code> olay dinleyicisi ile haritanın anlık zoom seviyesi kontrol edilir. <code>zoom &gt;= threshold</code> ise koy katmanı haritaya eklenir, değilse <code>map.removeLayer()</code> ile gizlenir.
+              </p>
+              <div class="code-snippet">// Leaflet Zoom Threshold Çözümü:
+const threshold = 7;
+map.on('zoomend', () => {
+  if (map.getZoom() >= threshold) {
+    if (!map.hasLayer(markersLayer)) map.addLayer(markersLayer);
+  } else {
+    if (map.hasLayer(markersLayer)) map.removeLayer(markersLayer);
+  }
+});</div>
+            </div>
+
+            <!-- Sorun 2 Kutusu -->
+            <div class="issue-box">
+              <div class="issue-box-title">
+                <span>🌍 Sorun 2: Uzaklaşınca Dünyanın Tekrarlamasını Önleme</span>
+              </div>
+              <p>
+                <strong>Problem:</strong> Varsayılan Web Mercator projeksiyonunda karolar boylam boyunca sonsuz kez kopyalanır. Kullanıcı uzaklaştığında yan yana birden fazla Türkiye ve Akdeniz görür.
+              </p>
+              <p>
+                <strong>Çözüm:</strong> 
+                1. <code>L.tileLayer</code> üzerinde <code>noWrap: true</code> tanımlanır.<br>
+                2. Harita sınırları <code>maxBounds: worldBounds</code> ile kilitlenir.<br>
+                3. Sürüklemeyi tamamen durdurmak için <code>maxBoundsViscosity: 1.0</code> ve <code>minZoom: 2</code> ayarlanır.
+              </p>
+              <div class="code-snippet">// Leaflet Dünya Tekrarını Engelleme:
+const worldBounds = L.latLngBounds([-85.05, -180], [85.05, 180]);
+const map = L.map('leaflet-map', {
+  maxBounds: worldBounds,
+  maxBoundsViscosity: 1.0, // Lastik etkisini kaldırır
+  minZoom: 2
+});
+L.tileLayer(url, { noWrap: true, bounds: worldBounds }).addTo(map);</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           HARİTA 2: OPENLAYERS IMPLEMENTASYONU (%10 OL + %10 Issue 1 + %10 Issue 2)
+           =================================================================== -->
+      <section class="map-card-wrapper" id="openlayers-section">
+        <div class="map-card-header">
+          <div class="map-title-group">
+            <h3>
+              <img src="images/openlayers.svg" alt="OpenLayers" width="28" height="28">
+              OpenLayers Kıyı Morfolojisi Haritası
+            </h3>
+            <span class="map-subtitle">
+              Yerleşik vektör <code>minZoom</code> kuralı ve OSM kaynağı <code>wrapX: false</code>
+            </span>
+          </div>
+
+          <div class="map-controls-bar">
+            <div class="map-status-pill">
+              <span>Mevcut Zoom:</span>
+              <strong id="ol-current-zoom" style="color: var(--sea-cyan); font-size: 1.1rem;">7</strong>
+            </div>
+
+            <div id="ol-marker-status" class="map-status-pill badge-emerald">
+              Koylar yükleniyor...
+            </div>
+          </div>
+        </div>
+
+        <!-- OpenLayers Kontrol Barı -->
+        <div style="background: rgba(2, 11, 24, 0.95); padding: 0.85rem 1.75rem; border-bottom: 1px solid var(--border-ocean); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <!-- Sorun 1: OpenLayers minZoom Slider -->
+          <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.88rem;">
+            <label for="ol-threshold-slider" style="font-weight: 600; color: var(--sea-cyan);">
+              🎯 Sorun 1 minZoom Eşiği: <span id="ol-threshold-val" style="color: white; font-weight: 700;">7</span>
+            </label>
+            <input type="range" id="ol-threshold-slider" min="4" max="10" value="7" style="cursor: pointer; accent-color: var(--sea-cyan);">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">(OpenLayers katman düzeyinde minZoom)</span>
+          </div>
+
+          <!-- Sorun 2: wrapX Toggle -->
+          <div class="toggle-switch-wrapper">
+            <span style="color: var(--sea-cyan);">🌍 Sorun 2 wrapX: false Tekrar Önleme:</span>
+            <label class="switch">
+              <input type="checkbox" id="ol-wrap-toggle" checked>
+              <span class="slider"></span>
+            </label>
+            <span id="ol-wrap-status" class="map-status-pill badge-cyan" style="font-size: 0.8rem; padding: 0.25rem 0.65rem;">
+              Dünya Tekrarı Önleme: AÇIK
+            </span>
+          </div>
+        </div>
+
+        <!-- OpenLayers Harita Kapsayıcısı -->
+        <div id="openlayers-map" class="ol-map-container"></div>
+
+        <!-- OpenLayers Popup Overlay -->
+        <div id="ol-popup" class="ol-popup">
+          <a href="#" id="ol-popup-closer" class="ol-popup-closer">&times;</a>
+          <div id="ol-popup-content"></div>
+        </div>
+
+        <!-- OpenLayers Sorun 1 & 2 Raporu -->
+        <div class="issue-solution-panel">
+          <div class="issue-grid">
+            <div class="issue-box">
+              <div class="issue-box-title">
+                <span>🎯 Sorun 1: OpenLayers Yerleşik minZoom Mekanizması</span>
+              </div>
+              <p>
+                <strong>Problem:</strong> Yüzlerce kıyı noktasının küçük ölçeklerde çizdirilmesi GPU ve tarayıcı belleğini yorar.
+              </p>
+              <p>
+                <strong>Çözüm:</strong> OpenLayers, katman nesnesinin kendisine doğrudan <code>minZoom: 7</code> özelliği vermeyi destekler. Böylece herhangi bir manuel olay dinleyicisine gerek kalmadan çizim döngüsünde filtrelenir.
+              </p>
+              <div class="code-snippet">// OpenLayers Katman minZoom Özelliği:
+const vectorLayer = new ol.layer.Vector({
+  source: vectorSource,
+  minZoom: 7, // Zoom < 7 iken katman otomatik gizlenir
+  style: myCustomStyle
+});</div>
+            </div>
+
+            <div class="issue-box">
+              <div class="issue-box-title">
+                <span>🌍 Sorun 2: OpenLayers wrapX: false ve multiWorld</span>
+              </div>
+              <p>
+                <strong>Problem:</strong> OpenLayers OSM karo kaynağı varsayılan olarak sonsuz dünyalar çizer.
+              </p>
+              <p>
+                <strong>Çözüm:</strong> Karo kaynağına doğrudan <code>wrapX: false</code> parametresi geçilir ve harita görünümüne <code>multiWorld: false</code> verilir.
+              </p>
+              <div class="code-snippet">// OpenLayers wrapX Kapatma:
+const osmSource = new ol.source.OSM({
+  wrapX: false // Dünyanın yatayda tekrarlanmasını önler!
+});
+const view = new ol.View({
+  center: ol.proj.fromLonLat([30.5, 37.5]),
+  zoom: 7,
+  multiWorld: false
+});</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Karşılaştırma Matrisi Tablosu -->
+      <section class="section" style="padding-top: 1rem; padding-bottom: 3rem;">
+        <div class="section-header" style="margin-bottom: 1.5rem;">
+          <div class="section-kicker">Mühendislik Değerlendirmesi</div>
+          <h2 class="section-title">İki Harita Motorunun Karşılaştırması</h2>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="gis-table">
+            <thead>
+              <tr>
+                <th>Özellik / Problem</th>
+                <th>Leaflet.js Çözümü</th>
+                <th>OpenLayers Çözümü</th>
+                <th>Kıyı CBS Projesi Değerlendirmesi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Sorun 1: Zoom Eşik Değeri</strong></td>
+                <td><code>map.on('zoomend')</code> + <code>map.addLayer()</code> / <code>removeLayer()</code></td>
+                <td><code>ol.layer.Vector({ minZoom: 7 })</code></td>
+                <td>OpenLayers katman düzeyinde deklaratif çözer; Leaflet olay bazlı dinamik kontrol sağlar.</td>
+              </tr>
+              <tr>
+                <td><strong>Sorun 2: Dünya Tekrarı (World Wrap)</strong></td>
+                <td><code>noWrap: true</code> + <code>maxBounds</code> & <code>maxBoundsViscosity: 1.0</code></td>
+                <td><code>wrapX: false</code> + <code>multiWorld: false</code></td>
+                <td>Her iki kütüphane de doğru parametrelerle dünya tekrarını başarıyla engeller.</td>
+              </tr>
+              <tr>
+                <td><strong>Kullanım Alanı</strong></td>
+                <td>Hızlı, hafif, mobil dostu interaktif koy rehberleri</td>
+                <td>İleri düzey projeksiyonlar, WFS sorguları ve CBS analizleri</td>
+                <td>Koy keşif projemizde Leaflet mükemmel bir kullanıcı deneyimi sağlarken OpenLayers analitik altyapıyı destekler.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-heading">GMT 458 - Web GIS Assignment 1</div>
+          <p style="margin-bottom: 1rem; color: var(--text-secondary);">
+            Türkiye'nin Gizli Koyları Web GIS Portfolyosu. Leaflet, OpenLayers, semantik HTML5 ve saf CSS animasyonları ile hazırlanmıştır.
+          </p>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Hacettepe Üniversitesi • Geomatik Mühendisliği Bölümü
+          </p>
+        </div>
+
+        <div>
+          <div class="footer-heading">Sayfa Bağlantıları</div>
+          <ul class="footer-links">
+            <li><a href="index.html">Hakkımda & Proje</a></li>
+            <li><a href="technologies.html">Teknolojiler & Tablo</a></li>
+            <li><a href="projects.html">Koy Haritaları & Çözümler</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-heading">İletişim & Hakem Değerlendirmesi</div>
+          <ul class="footer-links">
+            <li><a href="https://github.com/hazalsila" target="_blank" rel="noopener">GitHub Profilim</a></li>
+            <li><a href="https://gmt458.hacettepe.edu.tr/" target="_blank" rel="noopener">Hakem Değerlendirme Sistemi</a></li>
+            <li><a href="mailto:hazalsilayilmaz@gmail.com">hazalsilayilmaz@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Hazal Sıla Yılmaz. Tüm hakları saklıdır.</div>
+        <div>Hacettepe Üniversitesi Web GIS (GMT 458)</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Local Leaflet & OpenLayers JS (Garantili Yerel Yükleme) -->
+  <script src="js/leaflet.js"></script>
+  <script src="js/ol.js"></script>
+
+  <!-- Application Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/leaflet-map.js"></script>
+  <script src="js/openlayers-map.js"></script>
+</body>
+</html>
