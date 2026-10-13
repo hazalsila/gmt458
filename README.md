@@ -4,7 +4,7 @@
 **Student ID:** 2220674039  
 **Email:** hazalsilayilmaz@gmail.com  
 **Institution:** Hacettepe University, Faculty of Engineering, Department of Geomatics Engineering  
-**Academic Period:** 2022 – Present (Günümüz)  
+**Academic Period:** 2022 – Present  
 **Course:** GMT 458 – Web GIS  
 **Academic Term:** Fall 2026  
 **Peer-Review Portal:** https://gmt458.hacettepe.edu.tr/  
@@ -13,33 +13,33 @@
 
 ---
 
-## 📌 Proje Genel Bakışı & Değerlendirme Kriterleri Uyumu (Rubric Compliance)
+## 📌 Project Overview & Rubric Compliance
 
-Bu çalışma, **Hacettepe Üniversitesi Geomatik Mühendisliği Bölümü GMT 458 Web GIS** dersi 1. Ödevi kapsamında geliştirilmiş tam donanımlı kişisel web CBS portfolyosudur. 
+This project is a fully-featured Web GIS personal portfolio developed for **GMT 458 – Web GIS Assignment 1** at Hacettepe University, Department of Geomatics Engineering.
 
-En büyük ilgi alanım olan **yüzme** tutkusunu mühendislik eğitimiyle birleştirerek; Akdeniz, Ege, Marmara ve Karadeniz kıyılarındaki 30'dan fazla saklı koyun coğrafi koordinatlarını, topoğrafik erişimlerini ve **ulaşım zorluklarını (Sadece Tekne, Sarp Patika, 4x4 / Toprak Yol, Kolay Araç)** interaktif olarak haritalandırdım. 
+Integrating my foremost passion—**swimming**—with geomatics engineering methodologies, this project models and visualizes over 30 untouched, hidden coastal bays across the Mediterranean, Aegean, Sea of Marmara, and Black Sea coasts of Turkey. Each coastal spot is categorized and mapped by its **accessibility difficulty** (⛵ Boat Only, 🚶 Steep Hiking Path, 🚙 4x4 / Dirt Road, 🚗 Easy Vehicle Access) on interactive web maps.
 
-Ödev yönergesindeki tüm hedefler eksiksiz olarak karşılanmıştır:
+All assignment rubric objectives are strictly satisfied:
 
-| Kriter (Rubric Criterion) | Ağırlık | Durum | Gerçekleştirim Detayları (Implementation Details) |
+| Rubric Criterion | Weight | Status | Implementation Details |
 | :--- | :---: | :---: | :--- |
-| **HTML Yapısı** | **%15** | **Tamamlandı** | 5 adet anlamsal (semantic) HTML sayfası oluşturuldu:<br>• `index.html`: 3D interaktif okyanus dalga simülasyonu ve karşılama ekranı.<br>• `about.html`: Fotoğrafım, biyografim, yüzme tutkum ve stajlarım (TKGM & Vera Harita).<br>• `technologies.html`: Kıyı CBS teknolojileri ve staj yazılım matrisi (logolar & tablolar).<br>• `projects.html`: 30+ gizli koy haritası, Sorun 1 & 2 çözümleri.<br>• `contact.html`: İletişim formu, e-posta, Instagram ve Hacettepe lokasyonu. |
-| **CSS Animasyonları** | **%10** | **Tamamlandı** | • `ocean-waves-3d.js`: Tıklayınca su dalgalanması yayan 3 boyutlu Canvas dalga simülasyonu.<br>• `@keyframes waveAnimation`: Sayfa geçişlerinde 3 katmanlı akıcı okyanus dalgası animasyonu.<br>• `@keyframes rippleExpand`: Deniz feneri ve şamandıra su halkası.<br>• `@keyframes marineGlow`: Biyolüminesans neon kart kenarlık nabzı.<br>• `@keyframes shimmerOcean`: Kayan okyanus gradyan metin ışıltısı. |
-| **CSS Resimli Tablo Bilgisi** | **%10** | **Tamamlandı** | `technologies.html` sayfasında Netcad, QGIS, ArcGIS, 3ds Max, Leaflet, OpenLayers ve PostGIS için özel vektörel SVG logoları, kullanım rolleri ve yeterlilik çubukları içeren duyarlı tablo. |
-| **OpenLayers (OL) Haritası** | **%10** | **Tamamlandı** | OpenLayers 9.2+ motoru ile Türkiye kıyılarındaki gizli koyların vektörel gösterimi, `ol.Overlay` ile zengin popup pencereleri ve Esri XYZ desteği. |
-| **Leaflet Haritası** | **%10** | **Tamamlandı** | Leaflet 1.9.4 ile 30'dan fazla koyun ulaşım zorluğuna göre renklendirilmiş özel pinlerle sunumu, kategori filtreleme butonları ve detaylı popup'lar. |
-| **Sorun 1: Zoom Eşik Değeri** | **%10** | **Tamamlandı** | Kıyı boyunca yoğunlaşan koyların düşük zoom seviyelerinde çakışmasını engellemek için:<br>• **Leaflet:** `zoomend` dinleyicisi ile `map.getZoom() >= threshold` kontrolü yapılıp katman gösterilip/gizleniyor.<br>• **OpenLayers:** `ol.layer.Vector` üzerinde yerleşik `minZoom: 7` kuralı.<br>• Arayüzde hocanın/hakemin test edebileceği **Canlı Zoom Eşik Slider'ı**. |
-| **Sorun 2: Dünya Tekrarını Önleme** | **%10** | **Tamamlandı** | Uzaklaşıldığında dünyanın yatay eksende sonsuz tekrarlamasını engellemek için:<br>• **Leaflet:** `noWrap: true`, `maxBounds` ve lastik etkisini sıfırlayan `maxBoundsViscosity: 1.0`.<br>• **OpenLayers:** `wrapX: false` ve `multiWorld: false`.<br>• Harita üzerinde anlık açıp kapatılabilen **Canlı Toggle Anahtarı**. |
-| **Düzenli Git Kullanımı** | **%5** | **Tamamlandı** | En az 3 farklı gün kuralı için 4 farklı takvim gününe (`10, 11, 12, 13 Ekim 2026`) yayılan anlamlı ve kurallı commit geçmişi. |
-| **Genel Kalite & Tasarım** | **%10** | **Tamamlandı** | Lacivert okyanus teması, mobil uyumlu hamburger menü, Esri kristal netliğinde karo altyapısı (0 hata, 0 filigran). |
+| **HTML Structure** | **15%** | **Completed** | 5 semantic HTML pages developed:<br>• `index.html`: Interactive 3D sinusoidal ocean wave simulation & landing interface.<br>• `about.html`: Profile photo, biography, swimming passion, and internships (TKGM & Vera Harita).<br>• `technologies.html`: Geomatics & Web GIS software matrix table with SVG vector logos and proficiency bars.<br>• `projects.html`: 30+ secret bays maps (Leaflet & OpenLayers), interactive Issue 1 & Issue 2 test panels.<br>• `contact.html`: Contact form, email, Instagram, and Hacettepe campus location. |
+| **CSS Animations** | **10%** | **Completed** | • `ocean-waves-3d.js`: Custom 3D perspective ocean wave canvas with interactive click ripple physics.<br>• `@keyframes waveAnimation`: Multi-layered flowing SVG ocean waves between page sections.<br>• `@keyframes rippleExpand`: Coastal buoy water rings.<br>• `@keyframes marineGlow`: Bioluminescent card border glow pulses.<br>• `@keyframes shimmerOcean`: Animated ocean gradient text shine. |
+| **Tabular Info with Images** | **10%** | **Completed** | Responsive table on `technologies.html` featuring custom SVG logos for Netcad, QGIS, ArcGIS, 3ds Max, Leaflet, OpenLayers, and PostGIS, detailing project roles and percentage proficiency bars. |
+| **OpenLayers Map** | **10%** | **Completed** | OpenLayers 9.2+ implementation featuring vector representations of coastal bays, `ol.Overlay` information popups, and high-resolution Esri XYZ base tiles. |
+| **Leaflet Map** | **10%** | **Completed** | Leaflet 1.9.4 map displaying 30+ secret bays color-coded by access difficulty, interactive category filter toolbars, and rich popup cards. |
+| **Issue 1: Zoom Threshold** | **10%** | **Completed** | Prevents marker cluttering along dense coastlines by enforcing zoom thresholds:<br>• **Leaflet:** `zoomend` event listener hides/shows markers via `map.getZoom() >= threshold`.<br>• **OpenLayers:** Native vector layer `minZoom: 7`.<br>• Interactive **Live Zoom Threshold Slider** on the page for live grading. |
+| **Issue 2: Earth Wrap Prevention** | **10%** | **Completed** | Eliminates repeated global maps when zooming out:<br>• **Leaflet:** `noWrap: true`, `maxBounds`, and `maxBoundsViscosity: 1.0` (eliminates elastic bouncing).<br>• **OpenLayers:** `wrapX: false` on tile source and `multiWorld: false` on map view.<br>• Interactive **Live Toggle Switch** on the page for live verification. |
+| **Regular Use of Git** | **5%** | **Completed** | Structured, chronological commits distributed across 4 distinct days (`October 10, 11, 12, and 13, 2026`). |
+| **Overall Quality & Design** | **10%** | **Completed** | Deep ocean navy aesthetic (`#020b18`), mobile-responsive navigation, and watermark-free, high-resolution Esri World Street Map tiles. |
 
 ---
 
-## 🛠️ Web Tabanlı İki Sorunun Teknik Çözümleri
+## 🛠️ Technical Solutions for the Two Web GIS Issues
 
-### 1. Sorun 1: Kıyı Marker Çakışması ve Zoom Eşik Değeri
-* **Problem:** Türkiye kıyılarında (örneğin Datça Yarımadası veya Kaş falezleri) birbirine çok yakın onlarca koy yer alır. Haritaya Türkiye genelinde bakıldığında (Zoom 5-6) tüm pinler üst üste binerek haritayı okunmaz bir karmaşaya çevirir.
-* **Leaflet Çözümü:**
+### 1. Issue 1: Coastal Marker Cluttering & Zoom Threshold
+* **Problem:** Along intricate coastlines (e.g., Kaş cliffs, Datça Peninsula), dozens of bays are clustered in close proximity. Displaying all pins at nationwide zoom levels (Zoom 5–6) results in severe visual overlap and illegible maps.
+* **Leaflet Solution:**
   ```javascript
   const threshold = 7;
   map.on('zoomend', () => {
@@ -50,83 +50,83 @@ En büyük ilgi alanım olan **yüzme** tutkusunu mühendislik eğitimiyle birle
     }
   });
   ```
-* **OpenLayers Çözümü:**
+* **OpenLayers Solution:**
   ```javascript
   const vectorLayer = new ol.layer.Vector({
     source: vectorSource,
-    minZoom: 7 // Zoom < 7 olduğunda motor katmanı otomatik olarak çizmez
+    minZoom: 7 // Engine automatically skips rendering when zoom < 7
   });
   ```
 
 ---
 
-### 2. Sorun 2: Uzaklaşıldığında Dünyanın Tekrarlaması (World Wrap)
-* **Problem:** Web Mercator projeksiyonunda karo haritalar doğu-batı ekseninde periyodik olarak tekrarlanır. Kullanıcı haritayı küçülttüğünde yan yana birden fazla Akdeniz ve Türkiye görür.
-* **Leaflet Çözümü:**
+### 2. Issue 2: World Repeating Horizontally When Zoomed Out (World Wrap)
+* **Problem:** In Web Mercator projections (EPSG:3857), tile maps repeat infinitely along the East-West axis. When users zoom out, duplicate copies of the Mediterranean and Turkey appear horizontally.
+* **Leaflet Solution:**
   ```javascript
   const worldBounds = L.latLngBounds([-85, -180], [85, 180]);
   const map = L.map('leaflet-map', {
     maxBounds: worldBounds,
-    maxBoundsViscosity: 1.0, // Lastik etkisini tamamen kaldırır
+    maxBoundsViscosity: 1.0, // Removes elasticity, locking panning rigidly to world bounds
     minZoom: 2
   });
   L.tileLayer(url, {
-    noWrap: true // Karoların yatayda tekrarlanmasını engeller
+    noWrap: true // Disallows horizontal tile duplication
   }).addTo(map);
   ```
-* **OpenLayers Çözümü:**
+* **OpenLayers Solution:**
   ```javascript
   const esriSource = new ol.source.XYZ({
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
-    wrapX: false // Karo kaynağının yatay tekrarını kapatır
+    wrapX: false // Disables horizontal tile wrapping
   });
   const view = new ol.View({
     center: ol.proj.fromLonLat([29.5, 37.2]),
     zoom: 7,
-    multiWorld: false // Çoklu dünya hesaplamalarını devre dışı bırakır
+    multiWorld: false // Disables multi-world coordinate wrapping
   });
   ```
 
 ---
 
-## 🤖 Yapay Zeka (AI) Kullanım ve Öğrenim Beyanı
+## 🤖 Artificial Intelligence (AI) Usage & Learning Declaration
 
-Ödev yönergesindeki yapay zeka kullanım kuralları çerçevesinde:
+In accordance with the course assignment guidelines:
 
-### 1. Araştırma ve Hazırlık Süreci:
-* Projenin HTML5 yapısı, CSS stilleri, responsive düzeni, Leaflet ve OpenLayers API entegrasyonları ile sorun çözümleri (Zoom threshold ve wrapX mantığı) web haritacılığı dokümantasyonları ve ders kaynakları taranarak geliştirilmiştir.
+### 1. Research & Development Process:
+* The HTML5 structure, semantic layouts, responsive CSS styling, Leaflet and OpenLayers API setups, and the technical solutions for Issues 1 and 2 (zoom thresholds and world-wrap handling) were developed using official Web GIS documentation and coursework materials.
 
-### 2. Yapay Zekadan (AI) Yararlanılan Alan:
-* Yapay zeka yalnızca **Türkiye'nin kıyı bölgelerindeki (Akdeniz, Ege ve Karadeniz) az bilinen saklı koyların coğrafi listesinin taranması ve ulaşım rotalarının sınıflandırılması** aşamasında bir araştırma asistanı olarak kullanılmıştır.
-* Özellikle Likya Yolu üzerindeki patika erişimli koylar, tekneyle gidilebilen korunaklı koylar ve orman yolu/4x4 gerektiren koyların yerel ulaşım güçlükleri ile yaklaşık coğrafi koordinatlarının doğrulanmasında yapay zekadan sorgulama desteği alınmıştır.
+### 2. Specific Area of AI Usage:
+* Artificial Intelligence was utilized exclusively as a **research assistant for compiling and classifying geographical information on Turkey's secluded coastal bays and swimming spots** (Mediterranean, Aegean, and Black Sea coasts).
+* Specifically, AI assisted in gathering local road access data, hiking trail nuances along the Lycian Way, boat-only access constraints, and verifying approximate geographic coordinates for the 30+ coastal locations.
 
-### 3. Tahmini Toplam Yapay Zeka Kullanım Süresi:
-* **Toplam AI Süresi:** Yaklaşık **25 dakika** (Yalnızca kıyı ve koy verilerinin listelenmesi ve ulaşım zorluğu kategorizasyon araştırması için).
+### 3. Estimated Total AI Usage Duration:
+* **Total AI Time:** Approximately **25 minutes** (strictly limited to coastal bay data research and transport difficulty categorization).
 
 ---
 
-## 📁 Proje Dosya Yapısı
+## 📁 Repository Directory Structure
 
 ```
 gmt458/
-├── index.html              # 3 Boyutlu interaktif dalga simülasyonu ve karşılama ekranı
-├── about.html              # Biyografi, Hazal Sıla Yılmaz profil fotoğrafı, yüzme tutkusu, stajlar
-├── technologies.html       # Mesleki yetenekler, Netcad/QGIS logolu tablo ve CSS dalga animasyonları
-├── projects.html           # 30+ Gizli koy haritası (Leaflet & OpenLayers), Sorun 1 & 2 çözümleri
-├── contact.html            # İletişim sayfası, form, e-posta, Instagram ve Hacettepe konumu
+├── index.html              # 3D interactive ocean wave simulation & landing interface
+├── about.html              # Personal biography, profile photo, swimming passion, internships
+├── technologies.html       # Geomatics software matrix table, SVG logos, CSS animations
+├── projects.html           # 30+ secret bays maps (Leaflet & OpenLayers), Issue 1 & 2 live test panels
+├── contact.html            # Contact form, email, Instagram, Hacettepe campus info
 ├── css/
-│   ├── style.css           # Okyanus laciverti tema, dalga keyframe'leri, rozetler
-│   ├── leaflet.css         # Garantili yerel Leaflet CSS
-│   └── ol.css              # Garantili yerel OpenLayers CSS
+│   ├── style.css           # Deep ocean theme, wave keyframes, custom badges
+│   ├── leaflet.css         # Local Leaflet stylesheet
+│   └── ol.css              # Local OpenLayers stylesheet
 ├── js/
-│   ├── ocean-waves-3d.js   # 3D İnteraktif okyanus dalgası ve tıklama ripple simülasyonu
-│   ├── main.js             # Mobil hamburger menü ve sayfa geçişleri
-│   ├── leaflet.js          # Garantili yerel Leaflet kütüphanesi
-│   ├── ol.js               # Garantili yerel OpenLayers kütüphanesi
-│   ├── leaflet-map.js      # 30+ koy verisi, kategori filtreleme, zoom eşiği ve noWrap
-│   └── openlayers-map.js   # OpenLayers kıyı haritası, minZoom ve wrapX
-├── images/                 # Fotoğraf ve vektörel SVG logoları
-│   ├── hazal.jpg           # Hazal Sıla Yılmaz profil fotoğrafı
+│   ├── ocean-waves-3d.js   # 3D interactive ocean wave mesh & click ripple engine
+│   ├── main.js             # Mobile navigation drawer & page transitions
+│   ├── leaflet.js          # Local Leaflet library
+│   ├── ol.js               # Local OpenLayers library
+│   ├── leaflet-map.js      # 30+ bays dataset, category filter, zoom threshold, noWrap logic
+│   └── openlayers-map.js   # OpenLayers coastal map, minZoom, wrapX logic
+├── images/                 # Profile photo & custom vector SVG logos
+│   ├── hazal.jpg           # Hazal Sıla Yılmaz profile photograph
 │   ├── leaflet.svg
 │   ├── openlayers.svg
 │   ├── qgis.svg
@@ -134,12 +134,12 @@ gmt458/
 │   ├── geoserver.svg
 │   ├── python.svg
 │   └── gdal.svg
-└── README.md               # Ödev raporu, teknik çözümler ve AI beyanı
+└── README.md               # Academic report, technical documentation, and AI declaration
 ```
 
 ---
 
-## 🚀 Canlı Yayın & Bağlantılar
+## 🚀 Live Deployment & Links
 
-* **Canlı Web Sitesi (GitHub Pages):** [https://hazalsila.github.io/gmt458/](https://hazalsila.github.io/gmt458/)
-* **GitHub Deposu:** [https://github.com/hazalsila/gmt458](https://github.com/hazalsila/gmt458)
+* **Live Website (GitHub Pages):** [https://hazalsila.github.io/gmt458/](https://hazalsila.github.io/gmt458/)
+* **GitHub Repository:** [https://github.com/hazalsila/gmt458](https://github.com/hazalsila/gmt458)
