@@ -268,18 +268,18 @@ img {
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .nav-link {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.9rem;
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   transition: var(--transition-normal);
   text-decoration: none;
   position: relative;
@@ -424,8 +424,8 @@ img {
 
 .profile-avatar-wrapper {
   position: relative;
-  width: 130px;
-  height: 130px;
+  width: 150px;
+  height: 150px;
   margin: 0 auto 1.5rem;
 }
 
@@ -586,6 +586,7 @@ img {
   letter-spacing: 0.02em;
 }
 
+/* Zorluk Rozetleri */
 .badge-boat {
   background: rgba(168, 85, 247, 0.18);
   color: #c084fc;
@@ -822,7 +823,7 @@ img {
 
 .map-container {
   width: 100%;
-  height: 540px;
+  height: 560px;
   position: relative;
   background: #020b18;
   z-index: 1;
@@ -830,7 +831,7 @@ img {
 
 .ol-map-container {
   width: 100%;
-  height: 540px;
+  height: 560px;
   position: relative;
   background: #020b18;
   z-index: 1;
@@ -866,18 +867,112 @@ img {
   font-size: 14px;
 }
 
-/* Leaflet Popup Ocean Styling */
+/* ==========================================================================
+   POPUP PHOTO STYLING (Koy Fotoğrafı ve Bilgi Kartı)
+   ========================================================================== */
 .leaflet-popup-content-wrapper {
-  background: rgba(2, 11, 24, 0.95) !important;
+  background: rgba(2, 11, 24, 0.98) !important;
   color: var(--text-primary) !important;
   border: 1px solid var(--border-ocean) !important;
-  border-radius: 12px !important;
+  border-radius: 14px !important;
   box-shadow: var(--shadow-ocean) !important;
-  backdrop-filter: blur(12px) !important;
+  backdrop-filter: blur(14px) !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: 1.5;
 }
 
 .leaflet-popup-tip {
-  background: rgba(2, 11, 24, 0.95) !important;
+  background: rgba(2, 11, 24, 0.98) !important;
+}
+
+.bay-popup-card {
+  font-family: var(--font-main);
+  min-width: 250px;
+  max-width: 290px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.bay-popup-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+  background: #041226;
+}
+
+.bay-popup-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.bay-popup-card:hover .bay-popup-img {
+  transform: scale(1.06);
+}
+
+.bay-popup-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ffffff;
+  padding: 3px 9px;
+  border-radius: 99px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.bay-popup-body {
+  padding: 12px 14px;
+  background: rgba(2, 11, 24, 0.95);
+  color: #f0fdfa;
+}
+
+.bay-popup-region {
+  font-size: 0.75rem;
+  color: var(--sea-cyan);
+  font-weight: 700;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.bay-popup-title {
+  margin: 0 0 6px 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.bay-popup-desc {
+  margin: 0 0 8px 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  line-height: 1.45;
+}
+
+.bay-popup-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  color: #64748b;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 6px;
+  font-family: var(--font-mono);
+}
+
+.bay-swim-badge {
+  color: var(--sea-foam);
+  font-weight: 600;
 }
 
 /* Interactive Issue Control Panel below Map */

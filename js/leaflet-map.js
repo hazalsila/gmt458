@@ -98,153 +98,241 @@ document.addEventListener('DOMContentLoaded', () => {
       sea: "Akdeniz",
       difficulty: "toprak",
       diffLabel: "Virajlı Dağ Yolu",
-      coords: [36.1554, 33.6881],
+      coords: [36.1495, 33.6895],
       icon: "🚙",
-      desc: "Kilikya Aphrodisias antik kenti kalıntıları arasında, iki taraflı beyaz kumsala sahip gizli yarımada."
-    },
-    {
-      name: "Gilindire Koyu",
-      city: "Mersin (Aydıncık)",
-      sea: "Akdeniz",
-      difficulty: "patika",
-      diffLabel: "Merdivenli Patika",
-      coords: [36.1362, 33.4011],
-      icon: "🚶",
-      desc: "Aynalıgöl Mağarası çıkışında falezlerin eteğinde tertemiz Akdeniz suları."
-    },
-    {
-      name: "Meydan & Çevlik Koyu",
-      city: "Hatay (Samandağ)",
-      sea: "Akdeniz",
-      difficulty: "kolay",
-      diffLabel: "Kolay Araç Ulaşımı",
-      coords: [35.9524, 35.9182],
-      icon: "🚗",
-      desc: "Titus Tüneli'nin denize açıldığı tarihi sahil şeridinde sörf ve yüzme alanı."
+      desc: "Kilikya Yarımadası'nda beyaz kumları ve iki taraflı deniziyle Akdeniz'in saklı incisi."
     },
 
-    // --- EGE BÖLGESİ ---
+    // --- EGE & LİKYA BÖLGESİ ---
+    {
+      name: "Soğuksu Koyu",
+      city: "Muğla (Fethiye / Kayaköy)",
+      sea: "Ege / Akdeniz",
+      difficulty: "patika",
+      diffLabel: "Likya Yolu Patikası",
+      coords: [36.5621, 29.0792],
+      icon: "🚶",
+      desc: "Kayaköy'den 40 dakikalık orman yürüyüşü ile ulaşılan, kayalardan buz gibi tatlı su kaynayan koy."
+    },
     {
       name: "Kabak Koyu",
       city: "Muğla (Fethiye)",
       sea: "Ege",
       difficulty: "patika",
-      diffLabel: "Dik Patika / Doğa Yürüyüşü",
+      diffLabel: "Patika / Dik İniş",
       coords: [36.4608, 29.1264],
       icon: "🚶",
-      desc: "Likya Yolu üzerindeki derin kanyonda, bozulmamış flora ve turkuaz sularıyla meşhur vadi."
+      desc: "Likya Yolu üzerindeki el değmemiş kanyon tabiatı, kamp alanları ve serin suları."
     },
     {
       name: "Kelebekler Vadisi",
       city: "Muğla (Fethiye)",
       sea: "Ege",
       difficulty: "tekne",
-      diffLabel: "Sadece Tekne / Zor Patika",
+      diffLabel: "Sadece Tekne Ulaşımı",
       coords: [36.4981, 29.1278],
       icon: "⛵",
-      desc: "350 metrelik sarp kanyon duvarlarının çevrelediği, karadan araç yolu olmayan masalsı sahil."
+      desc: "350 metre yüksekliğindeki sarp kanyon duvarlarının çevrelediği, masalsı turkuaz plaj."
     },
     {
-      name: "Kurubük Koyu",
-      city: "Muğla (Datça)",
+      name: "Cennet Koyu (Balaban)",
+      city: "Muğla (Fethiye)",
       sea: "Ege",
-      difficulty: "toprak",
-      diffLabel: "Virajlı Yol / İniş",
-      coords: [36.6872, 27.5765],
-      icon: "🚙",
-      desc: "Ovabükü ve Palamutbükü arasında akvaryum berraklığında bakir ve tesis olmayan koy."
+      difficulty: "patika",
+      diffLabel: "Likya Patikası / Tekne",
+      coords: [36.4821, 29.1124],
+      icon: "🚶",
+      desc: "Kara yolu olmayan, çam ormanı kokularının dalga seslerine karıştığı bakir kıyı."
     },
     {
-      name: "Domuzbükü (Domuzçukuru)",
-      city: "Muğla (Datça)",
+      name: "Sarsala Koyu",
+      city: "Muğla (Dalaman)",
+      sea: "Ege",
+      difficulty: "kolay",
+      diffLabel: "Virajlı Asfalt Yol",
+      coords: [36.6575, 28.8542],
+      icon: "🚗",
+      desc: "Kapukargın göllerinin arasından geçerek ulaşılan, rüzgara kapalı durgun deniz göleti."
+    },
+    {
+      name: "Bedri Rahmi Koyu (Taşyaka)",
+      city: "Muğla (Göcek)",
       sea: "Ege",
       difficulty: "tekne",
-      diffLabel: "Yalnızca Denizden Tekne",
-      coords: [36.6711, 27.6083],
+      diffLabel: "Sadece Tekne Ulaşımı",
+      coords: [36.6974, 28.8685],
       icon: "⛵",
-      desc: "Karadan araç yolu bulunmayan, çam ve zeytin ağaçlarıyla çevrili Datça'nın en bakir noktası."
+      desc: "Ünlü ressam Bedri Rahmi Eyüboğlu'nun 1974'te bir kayaya çizdiği balık resmi ve Likya kaya mezarları."
+    },
+    {
+      name: "Hamam Koyu (Kleopatra)",
+      city: "Muğla (Göcek)",
+      sea: "Ege",
+      difficulty: "tekne",
+      diffLabel: "Sadece Tekne Ulaşımı",
+      coords: [36.6432, 28.8584],
+      icon: "⛵",
+      desc: "Denizin içinde yarısı batık tarihi Roma hamamı kalıntıları arasında yüzme imkanı."
+    },
+    {
+      name: "Amos Koyu",
+      city: "Muğla (Bozburun / Turunç)",
+      sea: "Ege",
+      difficulty: "kolay",
+      diffLabel: "Kolay Asfalt Yol",
+      coords: [36.7585, 28.2642],
+      icon: "🚗",
+      desc: "Antik Amos tiyatrosu kalıntılarının altındaki çakıl plaj ve cam gibi su."
+    },
+    {
+      name: "Kumlubük Koyu",
+      city: "Muğla (Marmaris)",
+      sea: "Ege",
+      difficulty: "kolay",
+      diffLabel: "Marmaris Sahil Yolu",
+      coords: [36.7412, 28.2715],
+      icon: "🚗",
+      desc: "Geniş kumsalı, berrak derin suları ve yeşil tepeleriyle Marmaris'in en huzurlu köşesi."
     },
     {
       name: "Bördübet Koyu",
       city: "Muğla (Marmaris)",
       sea: "Ege",
       difficulty: "toprak",
-      diffLabel: "Toprak Orman Yolu",
-      coords: [36.8197, 28.0684],
+      diffLabel: "Orman Yolu (Toprak)",
+      coords: [36.8185, 28.0582],
       icon: "🚙",
-      desc: "Gökova Körfezi'nde dere ile denizin birleştiği, kuş sesleri içindeki huzurlu doğa harikası."
+      desc: "Adını İngiliz askerlerinin 'Birds' Bed' demesinden alan, kuş sesleri ve nehirle birleşen saklı deniz."
     },
     {
-      name: "Mazı Koyu (İnceyalı)",
-      city: "Muğla (Bodrum)",
+      name: "Boncuk Koyu",
+      city: "Muğla (Gökova)",
       sea: "Ege",
       difficulty: "toprak",
-      diffLabel: "Virajlı Dağ Yolu",
-      coords: [37.0012, 27.6654],
+      diffLabel: "Toprak Sahil Yolu",
+      coords: [36.9854, 28.2312],
       icon: "🚙",
-      desc: "Bodrum'un kalabalığından uzak, balıkçı teknelerinin sığındığı berrak taşlık sahil."
+      desc: "Kum köpekbalıklarının üreme alanı olan, palmiye ağaçlarıyla çevrili berrak koruma alanı."
+    },
+    {
+      name: "Sedir Adası (Kleopatra)",
+      city: "Muğla (Karasöğüt / Ula)",
+      sea: "Ege",
+      difficulty: "tekne",
+      diffLabel: "Tekne / Dolmuş Motoru",
+      coords: [36.9925, 28.2045],
+      icon: "⛵",
+      desc: "Jeolojik oolitik altın sarısı özel kumu ve antik Cedrae kenti kalıntıları."
+    },
+    {
+      name: "Palamutbükü",
+      city: "Muğla (Datça)",
+      sea: "Ege",
+      difficulty: "kolay",
+      diffLabel: "Datça Asfalt Yolu",
+      coords: [36.6712, 27.5085],
+      icon: "🚗",
+      desc: "Datça Yarımadası'nın meşhur badem çiçekleri ve turkuaz kristal suları."
+    },
+    {
+      name: "Ovabükü",
+      city: "Muğla (Datça)",
+      sea: "Ege",
+      difficulty: "kolay",
+      diffLabel: "Virajlı Asfalt Yol",
+      coords: [36.6785, 27.5624],
+      icon: "🚗",
+      desc: "Zeytin bahçeleri ve begonvillerle süslü, sessiz sakin Datça bükü."
+    },
+    {
+      name: "Kurubük Koyu",
+      city: "Muğla (Datça)",
+      sea: "Ege",
+      difficulty: "toprak",
+      diffLabel: "Yol Kenarı / Taşlık Patika",
+      coords: [36.6872, 27.5765],
+      icon: "🚙",
+      desc: "Ovabükü ile Palamutbükü arasında hiçbir tesis bulunmayan tamamen bakir kanyon koyu."
+    },
+    {
+      name: "Domuzbükü (Domuz Çukuru)",
+      city: "Muğla (Datça)",
+      sea: "Ege",
+      difficulty: "tekne",
+      diffLabel: "Sadece Tekne / Zorlu Patika",
+      coords: [36.6842, 27.6542],
+      icon: "⛵",
+      desc: "Kara yolu olmayan, çam ormanı ve deniz mağaralarıyla kaplı saklı vaha."
+    },
+    {
+      name: "Cennet Koyu",
+      city: "Muğla (Bodrum / Göltürkbükü)",
+      sea: "Ege",
+      difficulty: "toprak",
+      diffLabel: "Orman İçi Toprak Yol",
+      coords: [37.1352, 27.4785],
+      icon: "🚙",
+      desc: "Bodrum'un en berrak sularına ve zengin deniz dibi faunasına sahip saklı koyu."
+    },
+    {
+      name: "Çökertme Koyu",
+      city: "Muğla (Milas)",
+      sea: "Ege",
+      difficulty: "kolay",
+      diffLabel: "Asfalt Sahil Yolu",
+      coords: [37.0012, 27.7954],
+      icon: "🚗",
+      desc: "Türküye konu olmuş, rüzgardan korunaklı tarihi balıkçı koyu."
     },
     {
       name: "Dolungaz Koyu",
       city: "İzmir (Karaburun)",
       sea: "Ege",
       difficulty: "patika",
-      diffLabel: "Kayalık Patika İnişi",
+      diffLabel: "Falez Patikası",
       coords: [38.6478, 26.4352],
       icon: "🚶",
-      desc: "Karaburun falezleri arasında turkuaz rengiyle büyüleyen, çadır ve kampçıların saklı mekanı."
+      desc: "Karaburun falezleri arasında saklı, turkuaz renkli kireçtaşı kayalıklar ve kamp noktası."
     },
     {
       name: "Delikli Koy",
       city: "İzmir (Çeşme / Alaçatı)",
       sea: "Ege",
       difficulty: "toprak",
-      diffLabel: "Toprak Yol / Taşlık",
+      diffLabel: "Toprak Yol",
       coords: [38.2582, 26.3312],
       icon: "🚙",
-      desc: "Rüzgar ve dalgalarla aşınmış beyaz tebeşir kayaları ve serin tertemiz sular."
+      desc: "Rüzgar ve dalgaların aşındırdığı beyaz doğal kalker kaya oluşumları ve serin sular."
     },
     {
-      name: "Kalem & Garip Adası Koyu",
-      city: "İzmir (Dikili)",
+      name: "Sazlıca Koyu",
+      city: "İzmir (Yeni Foça)",
       sea: "Ege",
-      difficulty: "tekne",
-      diffLabel: "Sadece Tekne Ulaşımı",
-      coords: [39.0115, 26.7942],
-      icon: "⛵",
-      desc: "Ege'nin Maldivleri olarak bilinen, açık turkuaz rengi ve beyaz kumuyla ünlü ada koyu."
+      difficulty: "kolay",
+      diffLabel: "Foça Sahil Yolu",
+      coords: [38.7185, 26.8542],
+      icon: "🚗",
+      desc: "Eski ve Yeni Foça arasında dalış kulüplerinin ve yüzücülerin gözdesi soğuk kaynaklı koy."
     },
     {
-      name: "Dilek Yarımadası Karasu Koyu",
-      city: "Aydın (Kuşadası)",
+      name: "Badembükü",
+      city: "İzmir (Karaburun)",
       sea: "Ege",
-      difficulty: "patika",
-      diffLabel: "Milli Park İçi Patika",
-      coords: [37.6985, 27.1685],
-      icon: "🚶",
-      desc: "Yunusların ve Akdeniz foklarının üreme alanı olan koruma altındaki milli park koyu."
+      difficulty: "toprak",
+      diffLabel: "Virajlı Toprak Yol",
+      coords: [38.5982, 26.3654],
+      icon: "🚙",
+      desc: "Narenciye bahçelerinin bittiği yerde başlayan geniş ve vahşi Ege plajı."
     },
-
-    // --- MARMARA VE KUZEY EGE ---
     {
       name: "Akvaryum Koyu",
       city: "Çanakkale (Bozcaada)",
-      sea: "Ege / Marmara",
+      sea: "Ege",
       difficulty: "toprak",
-      diffLabel: "Toprak Yol",
+      diffLabel: "Ada Toprak Yolu",
       coords: [39.7952, 26.0425],
       icon: "🚙",
-      desc: "Bozcaada'nın güneyinde, deniz gözlüğüyle sualtı canlılarının izlendiği şnorkel durağı."
-    },
-    {
-      name: "Beylik Koyu",
-      city: "Çanakkale (Bozcaada)",
-      sea: "Ege / Marmara",
-      difficulty: "patika",
-      diffLabel: "Kısa Patika Yürüyüşü",
-      coords: [39.8115, 26.0351],
-      icon: "🚶",
-      desc: "Ada rüzgarından korunaklı, altın rengi kumsalı ve batık gemi manzarasıyla meşhur ıssız koy."
+      desc: "Bozcaada'nın güneyinde, cam gibi berrak sularında şnorkelle yüzülen doğal deniz akvaryumu."
     },
     {
       name: "Sivrice Koyu",
@@ -407,26 +495,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const marker = L.marker(bay.coords, { icon: customPin });
 
+      // Clean & Elegant Informational Card Popup (No photos)
       marker.bindPopup(`
-        <div style="font-family: inherit; min-width: 230px; padding: 4px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <div style="font-family: inherit; min-width: 240px; padding: 6px 4px; color: #f0fdfa;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #38bdf8;">${bay.sea} • ${bay.city}</span>
-            <span style="font-size: 0.72rem; padding: 2px 8px; border-radius: 99px; background: ${pinColor}22; color: ${pinColor}; font-weight: 700; border: 1px solid ${pinColor}55;">
+            <span style="font-size: 0.72rem; padding: 2px 8px; border-radius: 99px; background: ${pinColor}25; color: ${pinColor}; font-weight: 700; border: 1px solid ${pinColor}55;">
               ${bay.diffLabel}
             </span>
           </div>
-          <h4 style="margin: 0 0 6px 0; font-size: 1.15rem; color: #f0fdfa; font-weight: 800;">
+          <h4 style="margin: 0 0 6px 0; font-size: 1.15rem; color: #ffffff; font-weight: 800;">
             ${bay.icon} ${bay.name}
           </h4>
-          <p style="margin: 0 0 10px 0; font-size: 0.88rem; color: #94a3b8; line-height: 1.45;">
+          <p style="margin: 0 0 10px 0; font-size: 0.88rem; color: #94a3b8; line-height: 1.5;">
             ${bay.desc}
           </p>
           <div style="padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #64748b; font-family: monospace;">
             <span>📍 ${bay.coords[0].toFixed(4)}°K, ${bay.coords[1].toFixed(4)}°D</span>
-            <span style="color: #38bdf8;">GMT 458</span>
+            <span style="color: #38bdf8; font-weight: 600;">🏊‍♀️ Yüzme Rotası</span>
           </div>
         </div>
-      `);
+      `, {
+        maxWidth: 300,
+        className: 'custom-bay-leaflet-popup'
+      });
 
       markersLayer.addLayer(marker);
     });

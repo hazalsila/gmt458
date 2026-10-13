@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>İletişim | Hazal Sıla Yılmaz - GMT 458 Web GIS</title>
+  <meta name="description" content="Hazal Sıla Yılmaz ile iletişime geçin. E-posta: hazalsilayilmaz@gmail.com, Instagram: @hazalsilayilmazz, GitHub: @hazalsila.">
+  
+  <!-- Google Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Site Header & Navigation -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="site-logo">
+        <div class="logo-icon">🌊</div>
+        <span>Hazal Sıla Yılmaz</span>
+      </a>
+
+      <button class="nav-toggle-btn" aria-label="Menüyü Aç/Kapat">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Giriş</a></li>
+        <li><a href="about.html" class="nav-link">Hakkımda</a></li>
+        <li><a href="technologies.html" class="nav-link">Özgeçmiş & Teknolojiler</a></li>
+        <li><a href="projects.html" class="nav-link">Koy Haritaları & Web GIS</a></li>
+        <li><a href="contact.html" class="nav-link active">İletişim</a></li>
+        <li><a href="https://github.com/hazalsila" target="_blank" rel="noopener" class="btn btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;">GitHub ↗</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Section Header -->
+    <section class="section" style="padding-bottom: 2rem;">
+      <div class="container">
+        <div class="section-header" style="margin-bottom: 2.5rem;">
+          <div class="section-kicker">İletişim & Ağ</div>
+          <h1 class="section-title">Benimle İletişime Geçin</h1>
+          <p class="section-desc">
+            Geomatik mühendisliği projeleri, kıyı CBS çalışmaları, staj fırsatları veya 
+            Türkiye'nin gizli koyları hakkında fikir alışverişi yapmak için bana ulaşabilirsiniz.
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width: 1050px; margin: 0 auto 3rem;">
+          <!-- Kart 1: E-posta -->
+          <a href="mailto:hazalsilayilmaz@gmail.com" class="card animate-marine-glow" style="text-decoration: none; color: inherit;">
+            <div class="card-icon" style="color: var(--sea-cyan); background: rgba(56, 189, 248, 0.15);">✉️</div>
+            <h3 class="card-title">E-posta Adresi</h3>
+            <p class="card-text" style="color: var(--sea-foam); font-size: 1.05rem; font-weight: 600;">
+              hazalsilayilmaz@gmail.com
+            </p>
+            <span class="badge badge-cyan">Mesaj Gönder ↗</span>
+          </a>
+
+          <!-- Kart 2: Instagram -->
+          <a href="https://instagram.com/hazalsilayilmazz" target="_blank" rel="noopener" class="card" style="text-decoration: none; color: inherit;">
+            <div class="card-icon" style="color: #ec4899; background: rgba(236, 72, 153, 0.15);">📷</div>
+            <h3 class="card-title">Instagram</h3>
+            <p class="card-text" style="color: #f472b6; font-size: 1.05rem; font-weight: 600;">
+              @hazalsilayilmazz
+            </p>
+            <span class="badge badge-rose">Takip Et & DM ↗</span>
+          </a>
+
+          <!-- Kart 3: GitHub -->
+          <a href="https://github.com/hazalsila" target="_blank" rel="noopener" class="card" style="text-decoration: none; color: inherit;">
+            <div class="card-icon" style="color: var(--sea-emerald); background: rgba(16, 185, 129, 0.15);">🐙</div>
+            <h3 class="card-title">GitHub Depoları</h3>
+            <p class="card-text" style="color: #34d399; font-size: 1.05rem; font-weight: 600;">
+              github.com/hazalsila
+            </p>
+            <span class="badge badge-emerald">Projeleri İncele ↗</span>
+          </a>
+        </div>
+
+        <!-- İletişim Formu ve Üniversite Konumu -->
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; max-width: 1050px; margin: 0 auto;">
+          <!-- Form -->
+          <div class="card">
+            <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 0.5rem; color: #f0fdfa;">
+              Bana Mesaj Bırakın
+            </h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 1.5rem;">
+              Formu doldurarak doğrudan e-posta gönderebilirsiniz.
+            </p>
+
+            <form onsubmit="event.preventDefault(); alert('Mesajınız başarıyla iletildi! En kısa sürede dönüş yapacağım.');">
+              <div style="margin-bottom: 1.2rem;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--sea-foam); margin-bottom: 0.4rem;">
+                  Adınız ve Soyadınız
+                </label>
+                <input type="text" required placeholder="Örn: Ayşe Yılmaz" style="width: 100%; padding: 0.75rem 1rem; background: rgba(2, 11, 24, 0.8); border: 1px solid var(--border-ocean); border-radius: 8px; color: #fff; font-family: inherit;">
+              </div>
+
+              <div style="margin-bottom: 1.2rem;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--sea-foam); margin-bottom: 0.4rem;">
+                  E-posta Adresiniz
+                </label>
+                <input type="email" required placeholder="adiniz@example.com" style="width: 100%; padding: 0.75rem 1rem; background: rgba(2, 11, 24, 0.8); border: 1px solid var(--border-ocean); border-radius: 8px; color: #fff; font-family: inherit;">
+              </div>
+
+              <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--sea-foam); margin-bottom: 0.4rem;">
+                  Mesajınız
+                </label>
+                <textarea rows="4" required placeholder="Mesajınızı buraya yazabilirsiniz..." style="width: 100%; padding: 0.75rem 1rem; background: rgba(2, 11, 24, 0.8); border: 1px solid var(--border-ocean); border-radius: 8px; color: #fff; font-family: inherit; resize: vertical;"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 1rem;">
+                🌊 Mesajı Gönder
+              </button>
+            </form>
+          </div>
+
+          <!-- Akademik Konum Kartı -->
+          <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="font-size: 2.2rem; margin-bottom: 1rem;">🏛️</div>
+              <h3 style="font-size: 1.35rem; font-weight: 700; color: #f0fdfa; margin-bottom: 0.5rem;">
+                Akademik Konum
+              </h3>
+              <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
+                <strong>Hacettepe Üniversitesi</strong><br>
+                Mühendislik Fakültesi<br>
+                Geomatik Mühendisliği Bölümü<br>
+                Beytepe Kampüsü, 06800 Çankaya / Ankara
+              </p>
+            </div>
+
+            <div style="background: rgba(2, 11, 24, 0.8); border: 1px solid var(--border-ocean); border-radius: 12px; padding: 1.25rem;">
+              <div style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; color: var(--sea-cyan); margin-bottom: 0.35rem;">
+                Hakem Değerlendirme Sistemi
+              </div>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.85rem;">
+                GMT 458 dersi ödev değerlendirmesi ve hakem geri bildirimleri için:
+              </p>
+              <a href="https://gmt458.hacettepe.edu.tr/" target="_blank" rel="noopener" class="btn btn-secondary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.5rem 1rem;">
+                gmt458.hacettepe.edu.tr ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dalga Animasyonu Bölümü -->
+    <div class="wave-container" aria-hidden="true">
+      <svg class="wave-svg wave-1" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,50 L1200,120 L0,120 Z"></path>
+      </svg>
+      <svg class="wave-svg wave-2" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,20 C200,100 450,10 700,70 C950,130 1100,30 1200,60 L1200,120 L0,120 Z"></path>
+      </svg>
+      <svg class="wave-svg wave-3" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,40 C300,110 600,20 900,80 C1050,110 1150,50 1200,70 L1200,120 L0,120 Z"></path>
+      </svg>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-heading">GMT 458 - Web GIS Assignment 1</div>
+          <p style="margin-bottom: 1rem; color: var(--text-secondary);">
+            Hazal Sıla Yılmaz Kişisel Web GIS Portfolyosu. Hacettepe Üniversitesi Geomatik Mühendisliği.
+          </p>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            hazalsilayilmaz@gmail.com • Instagram: @hazalsilayilmazz
+          </p>
+        </div>
+
+        <div>
+          <div class="footer-heading">Sayfa Bağlantıları</div>
+          <ul class="footer-links">
+            <li><a href="index.html">Giriş & 3D Dalgalar</a></li>
+            <li><a href="about.html">Hakkımda & Biyografi</a></li>
+            <li><a href="technologies.html">Özgeçmiş & Teknolojiler</a></li>
+            <li><a href="projects.html">Koy Haritaları & Web GIS</a></li>
+            <li><a href="contact.html">İletişim</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-heading">Sosyal & İletişim</div>
+          <ul class="footer-links">
+            <li><a href="https://instagram.com/hazalsilayilmazz" target="_blank" rel="noopener">Instagram: @hazalsilayilmazz</a></li>
+            <li><a href="https://github.com/hazalsila" target="_blank" rel="noopener">GitHub: @hazalsila</a></li>
+            <li><a href="mailto:hazalsilayilmaz@gmail.com">hazalsilayilmaz@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Hazal Sıla Yılmaz. Tüm hakları saklıdır.</div>
+        <div>Hacettepe Üniversitesi Web GIS (GMT 458)</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

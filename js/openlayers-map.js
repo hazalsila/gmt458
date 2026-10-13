@@ -121,16 +121,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (feature) {
       const coordinates = feature.getGeometry().getCoordinates();
       popupContent.innerHTML = `
-        <div style="font-family: inherit; font-size: 0.9rem; color: #f0fdfa;">
-          <span style="font-size: 0.72rem; color: #38bdf8; font-weight: 700; text-transform: uppercase;">
-            ${feature.get('city')} • ${feature.get('type')}
-          </span>
-          <h4 style="margin: 4px 0; font-size: 1.05rem; color: #ffffff; font-weight: 800;">
+        <div style="font-family: inherit; font-size: 0.9rem; color: #f0fdfa; padding: 4px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <span style="font-size: 0.72rem; color: #38bdf8; font-weight: 700; text-transform: uppercase;">
+              ${feature.get('city')}
+            </span>
+            <span style="font-size: 0.7rem; padding: 2px 7px; border-radius: 99px; background: rgba(20,184,166,0.15); color: #14b8a6; font-weight: 700; border: 1px solid rgba(20,184,166,0.4);">
+              ${feature.get('type')}
+            </span>
+          </div>
+          <h4 style="margin: 4px 0 6px 0; font-size: 1.05rem; color: #ffffff; font-weight: 800;">
             🌊 ${feature.get('name')}
           </h4>
-          <p style="margin: 0; color: #94a3b8; font-size: 0.82rem;">
+          <p style="margin: 0 0 6px 0; color: #94a3b8; font-size: 0.83rem; line-height: 1.45;">
             ${feature.get('info')}
           </p>
+          <div style="padding-top: 4px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.72rem; color: #38bdf8; font-weight: 600;">
+            🏊‍♀️ Yüzme & Kıyı Noktası
+          </div>
         </div>
       `;
       overlay.setPosition(coordinates);
@@ -181,30 +189,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Solution for Issue 2: Earth Repeating Itself When Zoomed Out (OpenLayers)
+  function updateOlWrap(disabled) {
+    isOlWrapDisabled = disabled;
+
+    esriSource = new ol.source.XYZ({
+      url: esriTileUrl,
+      attributions: 'Tiles &copy; Esri',
+      wrapX: !isOlWrapDisabled
+    });
+    rasterLayer.setSource(esriSource);
+
+    const currentCenter = view.getCenter();
+    const currentZoom = view.getZoom();
+
+    const newView = new ol.View({
+      center: currentCenter,
+      zoom: currentZoom,
+      minZoom: 2,
+      maxZoom: 18,
+      multiWorld: !isOlWrapDisabled
+    });
+
+    map.setView(newView);
+    newView.on('change:resolution', updateOlZoomStatus);
+
+    if (olWrapStatusEl) {
+      if (isOlWrapDisabled) {
+        olWrapStatusEl.textContent = "Dünya Tekrarı Önleme: AÇIK (wrapX: false)";
+        olWrapStatusEl.className = "map-status-pill badge-cyan";
+      } else {
+        olWrapStatusEl.textContent = "Dünya Tekrarı Önleme: KAPALI (Tekrarlıyor)";
+        olWrapStatusEl.className = "map-status-pill badge-amber";
+      }
+    }
+  }
+
   if (olWrapToggle) {
     olWrapToggle.addEventListener('change', (e) => {
-      isOlWrapDisabled = e.target.checked;
-
-      const newSource = new ol.source.XYZ({
-        url: esriTileUrl,
-        attributions: 'Tiles &copy; Esri',
-        wrapX: !isOlWrapDisabled
-      });
-      rasterLayer.setSource(newSource);
-
-      if (isOlWrapDisabled) {
-        if (olWrapStatusEl) {
-          olWrapStatusEl.textContent = "Dünya Tekrarı Önleme: AÇIK (wrapX: false)";
-          olWrapStatusEl.className = "map-status-pill badge-cyan";
-        }
-      } else {
-        if (olWrapStatusEl) {
-          olWrapStatusEl.textContent = "Dünya Tekrarı Önleme: KAPALI (Tekrarlıyor)";
-          olWrapStatusEl.className = "map-status-pill badge-amber";
-        }
-      }
+      updateOlWrap(e.target.checked);
     });
   }
 
+  // Initial trigger
   updateOlZoomStatus();
 });

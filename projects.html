@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gizli Koy Haritaları & Web GIS Çözümleri | Hazal Sıla Yılmaz</title>
-  <meta name="description" content="Leaflet ve OpenLayers ile Türkiye'nin gizli koyları haritası, zoom eşik değeri ve dünya tekrarı sorunlarının çözümü. GMT 458 Web GIS.">
+  <title>Türkiye'nin Gizli Koyları & Web GIS Çözümleri | Hazal Sıla Yılmaz</title>
+  <meta name="description" content="Yüzme tutkusuyla şekillenen Türkiye'nin gizli koyları haritası. Leaflet, OpenLayers, zoom eşiği ve dünya tekrarı önleme çözümleri. Hazal Sıla Yılmaz - GMT 458.">
   
   <!-- Google Fonts & Stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,13 +22,14 @@
     .ol-popup {
       position: absolute;
       background-color: #020b18;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75);
       padding: 12px 16px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid var(--border-ocean);
       bottom: 14px;
       left: -50px;
-      min-width: 220px;
+      min-width: 230px;
+      max-width: 290px;
       color: #f0fdfa;
     }
     .ol-popup:after, .ol-popup:before {
@@ -55,11 +56,12 @@
     .ol-popup-closer {
       text-decoration: none;
       position: absolute;
-      top: 4px;
+      top: 6px;
       right: 8px;
       color: var(--sea-cyan);
       font-size: 1.2rem;
       font-weight: bold;
+      line-height: 1;
     }
     .ol-popup-closer:hover {
       color: #ffffff;
@@ -85,9 +87,11 @@
       </button>
 
       <ul class="nav-menu">
-        <li><a href="index.html" class="nav-link">Hakkımda & Proje</a></li>
-        <li><a href="technologies.html" class="nav-link">Teknolojiler & Tablo</a></li>
-        <li><a href="projects.html" class="nav-link active">Koy Haritaları & Çözümler</a></li>
+        <li><a href="index.html" class="nav-link">Giriş</a></li>
+        <li><a href="about.html" class="nav-link">Hakkımda</a></li>
+        <li><a href="technologies.html" class="nav-link">Özgeçmiş & Teknolojiler</a></li>
+        <li><a href="projects.html" class="nav-link active">Koy Haritaları & Web GIS</a></li>
+        <li><a href="contact.html" class="nav-link">İletişim</a></li>
         <li><a href="https://github.com/hazalsila" target="_blank" rel="noopener" class="btn btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;">GitHub ↗</a></li>
       </ul>
     </div>
@@ -95,16 +99,18 @@
 
   <!-- Main Content -->
   <main>
-    <!-- Section Header -->
+    <!-- Section Header with User's Passion Narrative -->
     <section class="section" style="padding-bottom: 2rem;">
       <div class="container">
         <div class="section-header" style="margin-bottom: 1.5rem;">
-          <div class="section-kicker">Kıyı Coğrafi Bilgi Sistemleri</div>
-          <h1 class="section-title">Türkiye'nin Gizli Koyları İnteraktif Haritaları</h1>
-          <p class="section-desc">
-            Hem <strong>Leaflet</strong> hem de <strong>OpenLayers</strong> harita motorları üzerinde Türkiye kıyılarındaki 
-            30'dan fazla saklı koyun konumları ve ödevde belirtilen <strong>Sorun 1 (Zoom Eşik Değeri)</strong> ile 
-            <strong>Sorun 2 (Dünya Tekrarı Önleme)</strong> çözümlerinin canlı demosu.
+          <div class="section-kicker">🏊‍♀️ Yüzme Tutkusuyla Şekillenen Kıyı CBS</div>
+          <h1 class="section-title">Türkiye'nin Gizli Koyları ve Ulaşım Rotaları</h1>
+          <p class="section-desc" style="font-size: 1.1rem; line-height: 1.7; color: #f0fdfa;">
+            En büyük ilgi alanım <strong>yüzmek</strong> olduğu için; Türkiye'nin dört bir yanında 
+            <strong>bazılarında bizzat yüzdüğüm</strong>, <strong>bazılarına ise bir gün gitmeyi hayal ettiğim</strong> 
+            en güzel ve el değmemiş saklı koyların haritasını hazırladım. Bir geomatik mühendisi adayı olarak 
+            bu koyları yalnız birer gezi rotası olarak değil; karadan ve denizden ulaşım zorluklarını 
+            (sadece tekne, sarp falez patikası, 4x4 dağ yolu, kolay araç yolu) CBS ortamında modelleyerek sundum.
           </p>
         </div>
       </div>
@@ -220,13 +226,13 @@ map.on('zoomend', () => {
                 3. Sürüklemeyi tamamen durdurmak için <code>maxBoundsViscosity: 1.0</code> ve <code>minZoom: 2</code> ayarlanır.
               </p>
               <div class="code-snippet">// Leaflet Dünya Tekrarını Engelleme:
-const worldBounds = L.latLngBounds([-85.05, -180], [85.05, 180]);
+const worldBounds = L.latLngBounds([-85, -180], [85, 180]);
 const map = L.map('leaflet-map', {
   maxBounds: worldBounds,
   maxBoundsViscosity: 1.0, // Lastik etkisini kaldırır
   minZoom: 2
 });
-L.tileLayer(url, { noWrap: true, bounds: worldBounds }).addTo(map);</div>
+L.tileLayer(url, { noWrap: true }).addTo(map);</div>
             </div>
           </div>
         </div>
@@ -243,7 +249,7 @@ L.tileLayer(url, { noWrap: true, bounds: worldBounds }).addTo(map);</div>
               OpenLayers Kıyı Morfolojisi Haritası
             </h3>
             <span class="map-subtitle">
-              Yerleşik vektör <code>minZoom</code> kuralı ve OSM kaynağı <code>wrapX: false</code>
+              Yerleşik vektör <code>minZoom</code> kuralı ve Esri XYZ kaynağı <code>wrapX: false</code>
             </span>
           </div>
 
@@ -318,17 +324,18 @@ const vectorLayer = new ol.layer.Vector({
                 <span>🌍 Sorun 2: OpenLayers wrapX: false ve multiWorld</span>
               </div>
               <p>
-                <strong>Problem:</strong> OpenLayers OSM karo kaynağı varsayılan olarak sonsuz dünyalar çizer.
+                <strong>Problem:</strong> Karo kaynakları varsayılan olarak sonsuz dünyalar çizer.
               </p>
               <p>
                 <strong>Çözüm:</strong> Karo kaynağına doğrudan <code>wrapX: false</code> parametresi geçilir ve harita görünümüne <code>multiWorld: false</code> verilir.
               </p>
               <div class="code-snippet">// OpenLayers wrapX Kapatma:
-const osmSource = new ol.source.OSM({
+const esriSource = new ol.source.XYZ({
+  url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
   wrapX: false // Dünyanın yatayda tekrarlanmasını önler!
 });
 const view = new ol.View({
-  center: ol.proj.fromLonLat([30.5, 37.5]),
+  center: ol.proj.fromLonLat([29.5, 37.2]),
   zoom: 7,
   multiWorld: false
 });</div>
@@ -388,27 +395,29 @@ const view = new ol.View({
         <div>
           <div class="footer-heading">GMT 458 - Web GIS Assignment 1</div>
           <p style="margin-bottom: 1rem; color: var(--text-secondary);">
-            Türkiye'nin Gizli Koyları Web GIS Portfolyosu. Leaflet, OpenLayers, semantik HTML5 ve saf CSS animasyonları ile hazırlanmıştır.
+            Hazal Sıla Yılmaz Kişisel Web GIS Portfolyosu. Hacettepe Üniversitesi Geomatik Mühendisliği.
           </p>
           <p style="font-size: 0.85rem; color: var(--text-muted);">
-            Hacettepe Üniversitesi • Geomatik Mühendisliği Bölümü
+            hazalsilayilmaz@gmail.com • Instagram: @hazalsilayilmazz
           </p>
         </div>
 
         <div>
           <div class="footer-heading">Sayfa Bağlantıları</div>
           <ul class="footer-links">
-            <li><a href="index.html">Hakkımda & Proje</a></li>
-            <li><a href="technologies.html">Teknolojiler & Tablo</a></li>
-            <li><a href="projects.html">Koy Haritaları & Çözümler</a></li>
+            <li><a href="index.html">Giriş & 3D Dalgalar</a></li>
+            <li><a href="about.html">Hakkımda & Biyografi</a></li>
+            <li><a href="technologies.html">Özgeçmiş & Teknolojiler</a></li>
+            <li><a href="projects.html">Koy Haritaları & Web GIS</a></li>
+            <li><a href="contact.html">İletişim</a></li>
           </ul>
         </div>
 
         <div>
-          <div class="footer-heading">İletişim & Hakem Değerlendirmesi</div>
+          <div class="footer-heading">Sosyal & İletişim</div>
           <ul class="footer-links">
-            <li><a href="https://github.com/hazalsila" target="_blank" rel="noopener">GitHub Profilim</a></li>
-            <li><a href="https://gmt458.hacettepe.edu.tr/" target="_blank" rel="noopener">Hakem Değerlendirme Sistemi</a></li>
+            <li><a href="https://instagram.com/hazalsilayilmazz" target="_blank" rel="noopener">Instagram: @hazalsilayilmazz</a></li>
+            <li><a href="https://github.com/hazalsila" target="_blank" rel="noopener">GitHub: @hazalsila</a></li>
             <li><a href="mailto:hazalsilayilmaz@gmail.com">hazalsilayilmaz@gmail.com</a></li>
           </ul>
         </div>
@@ -421,7 +430,7 @@ const view = new ol.View({
     </div>
   </footer>
 
-  <!-- Local Leaflet & OpenLayers JS (Garantili Yerel Yükleme) -->
+  <!-- Local Leaflet & OpenLayers JS -->
   <script src="js/leaflet.js"></script>
   <script src="js/ol.js"></script>
 
