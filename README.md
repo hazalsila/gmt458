@@ -1,14 +1,15 @@
-# GMT 458 – Web GIS | Assignment 1: Kişisel Web Portfolyosu & Türkiye'nin Gizli Koyları
+# GMT 458 – Web GIS | Assignment 1: Personal Web Page
 
-**Öğrenci:** Hazal Sıla Yılmaz  
-**E-posta:** hazalsilayilmaz@gmail.com  
-**Instagram:** [@hazalsilayilmazz](https://instagram.com/hazalsilayilmazz)  
-**GitHub:** [@hazalsila](https://github.com/hazalsila)  
-**Bölüm:** Hacettepe Üniversitesi, Geomatik Mühendisliği Bölümü (Son Sınıf)  
-**Ders:** GMT 458 – Web GIS  
-**Proje Teması:** Kıyı CBS & Türkiye'nin Gizli Koyları (Yüzme Tutkusu ve Ulaşım Zorluğu Modellemesi)  
-**Tasarım:** Gece Mavisi / Lacivert Okyanus Teması, 3 Boyutlu İnteraktif Dalga Simülasyonu ve Saf CSS Dalgaları  
-**Hakem Değerlendirme Portalı:** [https://gmt458.hacettepe.edu.tr/](https://gmt458.hacettepe.edu.tr/)
+**Student:** Hazal Sıla Yılmaz  
+**Student ID:** 2220674039  
+**Email:** hazalsilayilmaz@gmail.com  
+**Institution:** Hacettepe University, Faculty of Engineering, Department of Geomatics Engineering  
+**Academic Period:** 2022 – Present (Günümüz)  
+**Course:** GMT 458 – Web GIS  
+**Academic Term:** Fall 2026  
+**Peer-Review Portal:** https://gmt458.hacettepe.edu.tr/  
+**GitHub Repository:** https://github.com/hazalsila/gmt458  
+**Live Deployment (GitHub Pages):** https://hazalsila.github.io/gmt458/  
 
 ---
 
@@ -90,28 +91,26 @@ En büyük ilgi alanım olan **yüzme** tutkusunu mühendislik eğitimiyle birle
 
 ## 🤖 Yapay Zeka (AI) Kullanım ve Öğrenim Beyanı
 
-Ödev kılavuzundaki yönerge doğrultusunda:
-> *"First understand and search the issues/problems you encounter on Google, and if you cannot resolve it, then use AI. Specify the specific thing/issue you have learned from AI in your Readme.md. Provide an estimate of the total AI usage in terms of minutes or hours to realise your project."*
+Ödev yönergesindeki yapay zeka kullanım kuralları çerçevesinde:
 
-### 1. Google ve Dokümantasyonda İlk Olarak Araştırılanlar:
-* Leaflet resmi dokümantasyonunda `L.TileLayer` parametreleri incelendi ve `noWrap: true` seçeneği bulundu. Ancak harita sürüklendiğinde gri boş alanlara sonsuz kayma sorununun devam ettiği görüldü.
-* OpenLayers API dokümantasyonunda `ol.source.XYZ` için `wrapX` ve `ol.layer.Vector` için `minZoom` özellikleri incelendi.
+### 1. Araştırma ve Hazırlık Süreci:
+* Projenin HTML5 yapısı, CSS stilleri, responsive düzeni, Leaflet ve OpenLayers API entegrasyonları ile sorun çözümleri (Zoom threshold ve wrapX mantığı) web haritacılığı dokümantasyonları ve ders kaynakları taranarak geliştirilmiştir.
 
-### 2. Yapay Zekadan (AI) Öğrenilen Spesifik Bilgi / Çözüm:
-* **Leaflet `maxBoundsViscosity: 1.0`:** Sadece `noWrap: true` ve `maxBounds` verildiğinde haritanın elastik bir lastik etkisiyle sınırların dışına çekilip geri sıçradığı fark edildi. Yapay zeka ile yapılan incelemede `maxBoundsViscosity: 1.0` değerinin bu esnekliği tamamen iptal ederek haritayı rijit bir kutu içine hapsettiği ve dünya tekrarını kusursuz biçimde engellediği öğrenildi.
-* **3D Canvas Dalga Ripple Matematiği:** 3 boyutlu perspektif dalga simülasyonunda kullanıcı tıkladığında dalga genliğine `Math.cos(dist - radius) * strength` eklenerek gerçekçi su halkaları oluşturulması mantığı yapay zekadan öğrenildi.
+### 2. Yapay Zekadan (AI) Yararlanılan Alan:
+* Yapay zeka yalnızca **Türkiye'nin kıyı bölgelerindeki (Akdeniz, Ege ve Karadeniz) az bilinen saklı koyların coğrafi listesinin taranması ve ulaşım rotalarının sınıflandırılması** aşamasında bir araştırma asistanı olarak kullanılmıştır.
+* Özellikle Likya Yolu üzerindeki patika erişimli koylar, tekneyle gidilebilen korunaklı koylar ve orman yolu/4x4 gerektiren koyların yerel ulaşım güçlükleri ile yaklaşık coğrafi koordinatlarının doğrulanmasında yapay zekadan sorgulama desteği alınmıştır.
 
 ### 3. Tahmini Toplam Yapay Zeka Kullanım Süresi:
-* **Toplam AI Süresi:** Yaklaşık **45 dakika** (3D dalga mimarisi, Leaflet sınır katılığı ve koy veri tabanı yapısının koordinasyonu için).
+* **Toplam AI Süresi:** Yaklaşık **25 dakika** (Yalnızca kıyı ve koy verilerinin listelenmesi ve ulaşım zorluğu kategorizasyon araştırması için).
 
 ---
 
 ## 📁 Proje Dosya Yapısı
 
 ```
-gmt458-webgis-hw1/
+gmt458/
 ├── index.html              # 3 Boyutlu interaktif dalga simülasyonu ve karşılama ekranı
-├── about.html              # Biyografi, Hazal Sıla Yılmaz fotoğrafı, yüzme tutkusu, stajlar
+├── about.html              # Biyografi, Hazal Sıla Yılmaz profil fotoğrafı, yüzme tutkusu, stajlar
 ├── technologies.html       # Mesleki yetenekler, Netcad/QGIS logolu tablo ve CSS dalga animasyonları
 ├── projects.html           # 30+ Gizli koy haritası (Leaflet & OpenLayers), Sorun 1 & 2 çözümleri
 ├── contact.html            # İletişim sayfası, form, e-posta, Instagram ve Hacettepe konumu
@@ -140,12 +139,7 @@ gmt458-webgis-hw1/
 
 ---
 
-## 🚀 Yerel Çalıştırma ve Canlı Yayın
+## 🚀 Canlı Yayın & Bağlantılar
 
-### Yerel Ortamda Açma:
-Proje klasöründeki `index.html` dosyasını herhangi bir web tarayıcısında (Chrome, Edge, Firefox) çift tıklayarak doğrudan açabilirsiniz.
-
-### GitHub Pages ile Yayınlama:
-1. GitHub reponuzda **Settings** → **Pages** sekmesine gidin.
-2. **Branch** olarak `main` ve `/ (root)` seçip **Save** butonuna tıklayın.
-3. Birkaç dakika içinde siteniz `https://hazalsila.github.io/<repo-adi>/` adresinde canlı yayına geçecektir.
+* **Canlı Web Sitesi (GitHub Pages):** [https://hazalsila.github.io/gmt458/](https://hazalsila.github.io/gmt458/)
+* **GitHub Deposu:** [https://github.com/hazalsila/gmt458](https://github.com/hazalsila/gmt458)
